@@ -69,7 +69,7 @@ export function Complaints() {
     const fetchStats = async () => {
         try {
             const { data } = await client.get('/complaints/stats');
-            setStats(data);
+            setStats(data.stats || { total: 0, pending: 0, inProgress: 0, resolved: 0 });
         } catch (error) {
             console.error("Failed to fetch stats", error);
         }

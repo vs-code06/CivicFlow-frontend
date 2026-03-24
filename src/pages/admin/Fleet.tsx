@@ -888,12 +888,31 @@ export function Fleet() {
                                     </Button>
                                 </>
                             ) : selectedItem.vehicleId ? (
-                                <Button
-                                    onClick={() => { fetchPersonnel(); setAssignDriverVehicle(selectedItem); setSelectedItem(null); }}
-                                    className="flex-1 h-11 rounded-xl bg-civic-dark dark:bg-white text-white dark:text-civic-dark font-bold"
-                                >
-                                    <UserCheck className="h-4 w-4 mr-2" /> Assign Driver
-                                </Button>
+                                selectedItem.driverId ? (
+                                    <Button
+                                        onClick={async () => {
+                                            if (!window.confirm("Remove assigned driver from this vehicle?")) return;
+                                            try {
+                                                await client.put(`/vehicles/${selectedItem._id}/assign`, { driverId: null });
+                                                fetchVehicles();
+                                                fetchPersonnel();
+                                                setSelectedItem(null);
+                                            } catch (err) {
+                                                console.error("Failed to remove driver", err);
+                                            }
+                                        }}
+                                        className="flex-1 h-11 rounded-xl bg-red-50 hover:bg-red-100 dark:bg-red-900/20 text-red-600 font-bold"
+                                    >
+                                        <X className="h-4 w-4 mr-2" /> Remove Driver
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        onClick={() => { fetchPersonnel(); setAssignDriverVehicle(selectedItem); setSelectedItem(null); }}
+                                        className="flex-1 h-11 rounded-xl bg-civic-dark dark:bg-white text-white dark:text-civic-dark font-bold"
+                                    >
+                                        <UserCheck className="h-4 w-4 mr-2" /> Assign Driver
+                                    </Button>
+                                )
                             ) : (
                                 <Button
                                     onClick={() => setSelectedItem(null)}

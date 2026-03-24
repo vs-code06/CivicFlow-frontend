@@ -4,13 +4,26 @@ import { Input } from '../../components/ui/input';
 import { User, Shield, Monitor, Save, Building, ClipboardList, Loader2, CheckCircle, AlertCircle, FileText, Clock } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom';
 import client from '../../api/client';
 import { cn } from '../../lib/utils';
 
 export function Settings() {
     const { theme, setTheme } = useTheme();
     const { user, refreshUser } = useAuth();
-    const [activeTab, setActiveTab] = useState('general');
+    const location = useLocation();
+    
+    const [activeTab, setActiveTab] = useState(() => {
+        const hash = location.hash.replace('#', '');
+        return ['general', 'organization', 'security', 'audit', 'appearance'].includes(hash) ? hash : 'general';
+    });
+
+    useEffect(() => {
+        const hash = location.hash.replace('#', '');
+        if (['general', 'organization', 'security', 'audit', 'appearance'].includes(hash)) {
+            setActiveTab(hash);
+        }
+    }, [location.hash]);
 
     // Profile State
     const [profileData, setProfileData] = useState({

@@ -39,59 +39,74 @@ const priorityColors = {
 
 const TaskCard = ({ task, onDelete, onEdit }: { task: any, onDelete: (id: string) => void, onEdit: (task: any) => void }) => {
     return (
-        <div className={`group bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer border-l-[4px] ${priorityColors[task.priority as keyof typeof priorityColors] || priorityColors.Low}`}>
-            <div className="flex justify-between items-start mb-3">
-                <span className="font-mono text-[10px] text-gray-400 dark:text-gray-500 font-bold">{task.id}</span>
-                <DropdownMenu>
-                    <DropdownMenuTrigger className="h-6 w-6 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 transition-colors outline-none ring-0">
-                        <MoreHorizontal className="h-4 w-4" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => onEdit(task)}>
-                            Edit Task
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                            onClick={() => onDelete(task._id)}
-                            className="text-red-600 dark:text-red-400 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/10"
-                        >
-                            Delete Task
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
-
-            <h4 className="font-bold text-civic-dark dark:text-white text-sm mb-3 leading-tight group-hover:text-civic-green-600 dark:group-hover:text-civic-green-400 transition-colors">
-                {task.title}
-            </h4>
-
-            <div className="flex flex-wrap gap-2 mb-4">
-                <PriorityBadge priority={task.priority} />
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-gray-700 uppercase tracking-wider flex items-center gap-1">
-                    <MapPin className="h-3 w-3" /> {task.zone}
-                </span>
-            </div>
-
-            <div className="space-y-2 pt-3 border-t border-gray-50 dark:border-gray-800">
-                {/* Driver Row */}
-                <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                        <User className="h-3.5 w-3.5 text-gray-400 dark:text-gray-600" />
-                        <span>{task.driver}</span>
+        <div className={`group bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border-t-[4px] flex flex-col justify-between min-h-[220px] ${priorityColors[task.priority as keyof typeof priorityColors] || priorityColors.Low}`}>
+            <div>
+                <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-center gap-2">
+                        <span className="font-mono text-[11px] text-gray-400 dark:text-gray-500 font-bold bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md">{task.id}</span>
+                        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border
+                            ${task.status === 'Completed' ? 'bg-green-50 text-green-700 border-green-100 dark:bg-green-900/20 dark:text-green-400' :
+                                task.status === 'In Progress' ? 'bg-orange-50 text-orange-700 border-orange-100 dark:bg-orange-900/20 dark:text-orange-400' :
+                                    task.status === 'Review' ? 'bg-blue-50 text-blue-700 border-blue-100' :
+                                        'bg-gray-50 text-gray-600 border-gray-100 dark:bg-gray-800 dark:text-gray-400'}`}>
+                            {task.status}
+                        </span>
                     </div>
-                    {task.status !== 'Completed' && (
-                        <div className="font-bold text-gray-400 dark:text-gray-500">{task.due}</div>
-                    )}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className="h-8 w-8 flex items-center justify-center rounded-xl bg-gray-50 hover:bg-civic-dark hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-400 transition-colors outline-none ring-0">
+                            <MoreHorizontal className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-40 rounded-xl">
+                            <DropdownMenuLabel className="text-xs text-gray-400 font-bold uppercase">Actions</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={() => onEdit(task)} className="font-medium cursor-pointer">
+                                Edit Task
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                                onClick={() => onDelete(task._id)}
+                                className="text-red-600 dark:text-red-400 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/10 font-bold cursor-pointer"
+                            >
+                                Delete Task
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
 
-                {/* Truck Row */}
-                {task.truck !== '-' && (
-                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        <Truck className="h-3.5 w-3.5 text-gray-400 dark:text-gray-600" />
-                        <span className="font-mono font-bold text-xs">{task.truck}</span>
+                <h4 className="font-extrabold text-civic-dark dark:text-white text-[15px] mb-4 leading-snug group-hover:text-civic-green-600 dark:group-hover:text-civic-green-400 transition-colors line-clamp-2">
+                    {task.title}
+                </h4>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                    <PriorityBadge priority={task.priority} />
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                        <MapPin className="h-3 w-3 text-civic-dark dark:text-white" /> {task.zone}
+                    </span>
+                </div>
+            </div>
+
+            <div className="space-y-3 pt-4 border-t border-gray-50 dark:border-gray-800/50 mt-auto">
+                <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-medium bg-gray-50 dark:bg-gray-800 px-2.5 py-1.5 rounded-lg w-full">
+                        <User className="h-4 w-4 text-civic-dark dark:text-white shrink-0" />
+                        <span className="truncate">{task.driver}</span>
                     </div>
-                )}
+                </div>
+
+                <div className="flex items-center justify-between text-xs">
+                    {task.truck !== '-' ? (
+                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-medium">
+                            <Truck className="h-4 w-4 text-civic-dark dark:text-white shrink-0" />
+                            <span className="font-mono bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md">{task.truck}</span>
+                        </div>
+                    ) : (
+                        <div className="text-gray-400 dark:text-gray-600 font-medium italic">No Vehicle</div>
+                    )}
+                    {task.status !== 'Completed' && (
+                        <div className="font-bold text-civic-dark dark:text-gray-300 flex items-center gap-1.5">
+                            <Clock className="h-3.5 w-3.5 text-orange-500" /> {task.due}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -272,14 +287,6 @@ export function Tasks() {
 
     return (
         <div className="space-y-8 max-w-[1600px] mx-auto pb-12">
-            {/* Loading Overlay */}
-            {loading && (
-                <div className="absolute inset-0 bg-white/50 dark:bg-gray-950/50 backdrop-blur-sm z-50 flex flex-col items-center justify-center rounded-3xl min-h-[400px]">
-                    <Loader2 className="h-10 w-10 text-civic-green-500 animate-spin mb-4" />
-                    <p className="text-sm font-bold text-gray-500 dark:text-gray-400 animate-pulse uppercase tracking-widest">Loading Tasks...</p>
-                </div>
-            )}
-
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-2">
                 <div>
@@ -398,40 +405,50 @@ export function Tasks() {
                 )}
             </div>
 
-            {/* Board View */}
+            {/* CONTENT AREA */}
+            {loading && tasks.length === 0 ? (
+                <div className="flex flex-col items-center justify-center p-20 min-h-[400px] bg-gray-50/50 dark:bg-gray-800/30 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800">
+                    <Loader2 className="h-8 w-8 text-civic-green-500 animate-spin mb-4" />
+                    <p className="text-sm font-bold text-gray-500 dark:text-gray-400">Loading tasks...</p>
+                </div>
+            ) : (
+                <>
+                    {/* Board View (Grouped Grid / Swimlanes) */}
             {viewMode === 'board' && (
-                <div className="px-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-4">
-                        {columns.map(status => {
-                            const columnTasks = tasks.filter(t => t.status === status);
-                            return (
-                                <div key={status} className="flex flex-col h-full rounded-xl bg-gray-50/50 dark:bg-gray-900/50 border border-dashed border-gray-200 dark:border-gray-800 p-2 min-h-[500px]">
-                                    <div className="flex items-center justify-between mb-4 px-1 pt-2">
-                                        <h3 className="text-sm font-bold text-civic-dark dark:text-white uppercase tracking-widest flex items-center gap-2">
-                                            {status === 'Pending' && <AlertCircle className="h-4 w-4 text-gray-400" />}
-                                            {status === 'In Progress' && <Clock className="h-4 w-4 text-civic-orange-500" />}
-                                            {status === 'Completed' && <CheckCircle2 className="h-4 w-4 text-civic-green-600 dark:text-civic-green-400" />}
-                                            {status === 'Review' && <User className="h-4 w-4 text-civic-blue" />}
-                                            {status}
-                                        </h3>
-                                        <span className="bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-gray-100 dark:border-gray-700">
-                                            {columnTasks.length}
-                                        </span>
+                <div className="px-2 space-y-10 pb-6">
+                    {columns.map(status => {
+                        const columnTasks = tasks.filter(t => t.status === status);
+                        if (columnTasks.length === 0) return null;
+
+                        return (
+                            <div key={status} className="space-y-4">
+                                <div className="flex items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-3">
+                                    <div className="flex items-center gap-2">
+                                        {status === 'Pending' && <AlertCircle className="h-5 w-5 text-gray-400" />}
+                                        {status === 'In Progress' && <Clock className="h-5 w-5 text-civic-orange-500" />}
+                                        {status === 'Completed' && <CheckCircle2 className="h-5 w-5 text-civic-green-600 dark:text-civic-green-400" />}
+                                        {status === 'Review' && <User className="h-5 w-5 text-civic-blue" />}
+                                        <h3 className="text-lg font-black text-civic-dark dark:text-white uppercase tracking-widest">{status}</h3>
                                     </div>
-                                    <div className="space-y-3 flex-1">
-                                        {columnTasks.map(task => (
-                                            <TaskCard key={task.id} task={task} onDelete={handleDeleteClick} onEdit={handleEditClick} />
-                                        ))}
-                                        {columnTasks.length === 0 && (
-                                            <div className="h-full flex items-center justify-center text-gray-300 dark:text-gray-700 text-xs font-medium italic">
-                                                No tasks
-                                            </div>
-                                        )}
-                                    </div>
+                                    <span className="bg-white border border-gray-200 shadow-sm dark:border-gray-700 dark:bg-gray-800 text-gray-500 dark:text-gray-300 text-xs font-bold px-2 py-0.5 rounded-full">
+                                        {columnTasks.length} {columnTasks.length === 1 ? 'Task' : 'Tasks'}
+                                    </span>
                                 </div>
-                            )
-                        })}
-                    </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                    {columnTasks.map(task => (
+                                        <TaskCard key={task.id} task={task} onDelete={handleDeleteClick} onEdit={handleEditClick} />
+                                    ))}
+                                </div>
+                            </div>
+                        )
+                    })}
+                    
+                    {tasks.length === 0 && (
+                        <div className="text-center py-20 bg-gray-50 dark:bg-gray-800/50 border border-dashed border-gray-200 dark:border-gray-700 rounded-3xl">
+                            <p className="text-gray-500 font-medium">No tasks found matching your filters.</p>
+                            <Button variant="link" onClick={clearFilters} className="text-civic-green-600 mt-2">Clear all filters</Button>
+                        </div>
+                    )}
                 </div>
             )}
 
@@ -531,6 +548,8 @@ export function Tasks() {
                         </Button>
                     </div>
                 </div>
+            )}
+                </>
             )}
 
             {/* CREATE/EDIT TASK WIZARD */}
