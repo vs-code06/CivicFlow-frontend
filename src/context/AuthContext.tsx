@@ -19,6 +19,7 @@ interface User {
 interface AuthContextType {
     user: User | null;
     login: (role: UserRole, email?: string, password?: string) => Promise<void>;
+    googleLogin: (idToken: string, role?: UserRole) => Promise<void>;
     register: (name: string, email: string, password: string, role: UserRole) => Promise<void>;
     logout: () => Promise<void>;
     refreshUser: () => Promise<void>;
@@ -73,6 +74,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(data.user);
     };
 
+    const googleLogin = async (idToken: string, role?: UserRole) => {
+        const { data } = await client.post('/auth/google', { idToken, role });
+        setUser(data.user);
+    };
+
     const logout = async () => {
         try {
             await client.post('/auth/logout');
@@ -91,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, refreshUser: checkAuth, updateProfile, isAuthenticated: !!user, isLoading }}>
+        <AuthContext.Provider value={{ user, login, googleLogin, register, logout, refreshUser: checkAuth, updateProfile, isAuthenticated: !!user, isLoading }}>
             {children}
         </AuthContext.Provider>
     );

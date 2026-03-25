@@ -46,16 +46,16 @@ export function Dialog({ isOpen, onClose, title, description, children, classNam
 
             {/* Modal Content */}
             <div className={cn(
-                "relative z-50 w-full max-w-lg bg-white rounded-2xl shadow-2xl flex flex-col animate-in zoom-in-95 fade-in duration-300 overflow-hidden",
+                "relative z-50 w-full max-w-lg bg-white dark:bg-gray-900 rounded-2xl shadow-2xl dark:shadow-black/40 flex flex-col animate-in zoom-in-95 fade-in duration-300 overflow-hidden border border-transparent dark:border-gray-800",
                 className
             )}>
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-gray-50/50">
+                <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
                     <div>
-                        {title && <h2 className="text-xl font-bold text-civic-dark tracking-tight">{title}</h2>}
-                        {description && <p className="text-sm text-gray-500 mt-1">{description}</p>}
+                        {title && <h2 className="text-xl font-bold text-civic-dark dark:text-white tracking-tight">{title}</h2>}
+                        {description && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{description}</p>}
                     </div>
-                    <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-white hover:text-civic-dark shrink-0">
+                    <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-white dark:hover:bg-gray-700 hover:text-civic-dark dark:hover:text-white shrink-0">
                         <X className="h-5 w-5" />
                     </Button>
                 </div>

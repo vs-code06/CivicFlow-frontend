@@ -16,6 +16,9 @@ import { Signup } from './pages/auth/Signup';
 import { PersonnelDashboard } from './pages/personnel/PersonnelDashboard';
 import { ResidentDashboard } from './pages/resident/ResidentDashboard';
 import { Complaints } from './pages/admin/Complaints';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ForgotPassword } from './pages/auth/ForgotPassword';
+import { ResetPassword } from './pages/auth/ResetPassword';
 
 // Guard Component
 function ProtectedRoute({ children, role }: { children: React.ReactNode, role?: 'admin' | 'personnel' | 'resident' }) {
@@ -51,6 +54,8 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       {/* Admin Routes */}
       <Route path="/" element={
@@ -88,11 +93,13 @@ function AppRoutes() {
 
 function App() {
   return (
-    <AuthProvider>
-      <ThemeProvider defaultTheme="light" storageKey="wasteheroes-theme">
-        <AppRoutes />
-      </ThemeProvider>
-    </AuthProvider>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}>
+      <AuthProvider>
+        <ThemeProvider defaultTheme="light" storageKey="wasteheroes-theme">
+          <AppRoutes />
+        </ThemeProvider>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

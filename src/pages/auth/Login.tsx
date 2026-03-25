@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, ArrowRight, Eye, EyeOff, Activity, Globe, Shield, Home, AlertCircle } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
+import { GoogleLogin } from '@react-oauth/google';
 
 export function Login() {
-    const { login } = useAuth();
+    // Force light mode on login/signup pages to prevent dark inputs bleeding through
+    useEffect(() => {
+        const root = document.documentElement;
+        const wasDark = root.classList.contains('dark');
+        root.classList.remove('dark');
+        root.classList.add('light');
+        return () => {
+            // Restore dark mode if it was previously active
+            root.classList.remove('light');
+            if (wasDark || localStorage.getItem('vite-ui-theme') === 'dark') {
+                root.classList.add('dark');
+            }
+        };
+    }, []);
+
+    const { login, googleLogin } = useAuth();
     const navigate = useNavigate();
     const [selectedRole, setSelectedRole] = useState<'admin' | 'personnel' | 'resident'>('admin');
     const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +45,22 @@ export function Login() {
         } catch (err: any) {
             console.error("Login failed", err);
             setError(err.response?.data?.message || err.message || "Login failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleGoogleSuccess = async (credentialResponse: any) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            await googleLogin(credentialResponse.credential, selectedRole);
+            if (selectedRole === 'resident') navigate('/resident');
+            else if (selectedRole === 'personnel') navigate('/driver');
+            else navigate('/');
+        } catch (err: any) {
+            console.error("Google login failed", err);
+            setError(err.response?.data?.message || "Google Authentication failed");
         } finally {
             setIsLoading(false);
         }
@@ -154,6 +186,7 @@ export function Login() {
                     <div className="flex bg-gray-100 p-1 rounded-xl">
                         <button
                             onClick={() => setSelectedRole('admin')}
+                            type="button"
                             className={`flex-1 py-2.5 text-xs lg:text-sm font-bold rounded-lg transition-all ${selectedRole === 'admin'
                                 ? 'bg-white text-[#212121] shadow-sm'
                                 : 'text-gray-500 hover:text-gray-700'
@@ -163,6 +196,7 @@ export function Login() {
                         </button>
                         <button
                             onClick={() => setSelectedRole('resident')}
+                            type="button"
                             className={`flex-1 py-2.5 text-xs lg:text-sm font-bold rounded-lg transition-all ${selectedRole === 'resident'
                                 ? 'bg-white text-[#212121] shadow-sm'
                                 : 'text-gray-500 hover:text-gray-700'
@@ -172,6 +206,7 @@ export function Login() {
                         </button>
                         <button
                             onClick={() => setSelectedRole('personnel')}
+                            type="button"
                             className={`flex-1 py-2.5 text-xs lg:text-sm font-bold rounded-lg transition-all ${selectedRole === 'personnel'
                                 ? 'bg-white text-[#212121] shadow-sm'
                                 : 'text-gray-500 hover:text-gray-700'
@@ -200,9 +235,9 @@ export function Login() {
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
                                     <label className="text-sm font-bold text-[#212121]">Password</label>
-                                    <button type="button" className="text-sm font-bold hover:underline" style={{ color: getThemeColor() }}>
+                                    <Link to="/forgot-password" title="Forgot Password" className="text-sm font-bold hover:underline" style={{ color: getThemeColor() }}>
                                         Forgot?
-                                    </button>
+                                    </Link>
                                 </div>
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -240,6 +275,24 @@ export function Login() {
                         >
                             {isLoading ? 'Signing In...' : <span className="flex items-center justify-center gap-2">Get Started <ArrowRight className="h-4 w-4" /></span>}
                         </Button>
+
+                        <div className="relative flex items-center py-4">
+                            <div className="flex-grow border-t border-gray-200"></div>
+                            <span className="flex-shrink mx-4 text-xs font-bold text-gray-400 uppercase tracking-widest">Or continue with</span>
+                            <div className="flex-grow border-t border-gray-200"></div>
+                        </div>
+
+                        <div className="flex justify-center w-full">
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => setError('Google Login Failed')}
+                                theme="outline"
+                                shape="pill"
+                                width="100%"
+                                size="large"
+                                text="signin_with"
+                            />
+                        </div>
 
                         <div className="text-center text-sm text-gray-500">
                             New to CivicFlow? {' '}

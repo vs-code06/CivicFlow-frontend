@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff, Activity, Globe, Home, AlertCircle } from 'lucide-react';
@@ -6,6 +6,19 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 
 export function Signup() {
+    // Force light mode on login/signup pages to prevent dark inputs bleeding through
+    useEffect(() => {
+        const root = document.documentElement;
+        const wasDark = root.classList.contains('dark');
+        root.classList.remove('dark');
+        root.classList.add('light');
+        return () => {
+            root.classList.remove('light');
+            if (wasDark || localStorage.getItem('vite-ui-theme') === 'dark') {
+                root.classList.add('dark');
+            }
+        };
+    }, []);
     const { register } = useAuth();
     const navigate = useNavigate();
     const [selectedRole, setSelectedRole] = useState<'admin' | 'personnel' | 'resident'>('resident');

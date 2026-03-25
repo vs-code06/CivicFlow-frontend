@@ -19,6 +19,33 @@
     --ring: 221.2 83.2% 53.3%;
   }
 
+  .dark {
+    --background: 0 0% 4%;     /* #0a0a0a Deepest Background */
+    --foreground: 0 0% 98%;    /* #fafafa Off White */
+    
+    --muted: 0 0% 15%;         /* #262626 Muted */
+    --muted-foreground: 0 0% 64%;
+
+    --popover: 0 0% 9%;        /* #171717 Popover */
+    --popover-foreground: 0 0% 98%;
+
+    --card: 0 0% 11%;          /* #1c1c1c Card Background - Lighter than body */
+    --card-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;        /* #333333 Border - More visible */
+    --input: 0 0% 20%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --ring: 0 0% 83%;          /* #d4d4d4 Ring */
+  }
+
   html {
     overflow-y: auto;
     overflow-x: hidden;
@@ -28,7 +55,20 @@
     @apply bg-gray-50 text-civic-dark font-sans antialiased min-h-screen selection:bg-civic-green-100 selection:text-civic-green-700;
     overflow-x: hidden;
     position: relative;
-    /* Ensure body is a positioning context */
+  }
+
+  /* Premium Noise Texture for Dark Mode */
+  .dark body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 }
 
@@ -62,4 +102,20 @@
       transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), 1) rotate(var(--tw-enter-rotate, 0));
     }
   }
+}
+/* Premium UI Utilities */
+.dark .glass-card {
+  @apply bg-gray-900/40 backdrop-blur-md border border-white/5;
+}
+
+.dark .glow-green {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.dark .glow-orange {
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.15);
+}
+
+.dark .text-glow-green {
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
 }

@@ -25,7 +25,7 @@ export function ResComplaintsTab() {
     const [selectedHistoryComplaint, setSelectedHistoryComplaint] = useState<Complaint | null>(null);
 
     const [complaints, setComplaints] = useState<Complaint[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+
     const [newComplaintData, setNewComplaintData] = useState({ type: 'Missed Pickup', description: '', location: '', date: new Date().toISOString().split('T')[0] });
 
     // Fetch Complaints
@@ -47,7 +47,7 @@ export function ResComplaintsTab() {
             } catch (error) {
                 console.error("Failed to fetch complaints", error);
             } finally {
-                setIsLoading(false);
+
             }
         };
 
@@ -89,14 +89,14 @@ export function ResComplaintsTab() {
 
             {/* STATS OVERVIEW - Fills empty space and adds 'dashboard' feel */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col justify-between h-24 relative overflow-hidden group">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col justify-between h-24 relative overflow-hidden group">
                     <div className="absolute right-0 top-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
                         <AlertCircle className="h-12 w-12 text-blue-600" />
                     </div>
                     <span className="text-xs font-bold text-gray-500 uppercase tracking-wider z-10">Active Issues</span>
                     <div className="text-3xl font-bold text-gray-900 dark:text-white z-10">{activeComplaints.length}</div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col justify-between h-24 relative overflow-hidden group">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col justify-between h-24 relative overflow-hidden group">
                     <div className="absolute right-0 top-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
                         <Clock className="h-12 w-12 text-amber-500" />
                     </div>
@@ -105,7 +105,7 @@ export function ResComplaintsTab() {
                         {activeComplaints.filter(c => c.status === 'pending').length}
                     </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col justify-between h-24 relative overflow-hidden group">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col justify-between h-24 relative overflow-hidden group">
                     <div className="absolute right-0 top-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
                         <CheckCircle className="h-12 w-12 text-green-500" />
                     </div>
@@ -153,7 +153,7 @@ export function ResComplaintsTab() {
             {activeTab === 'active' && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 animate-in slide-in-from-bottom-4 duration-500">
                     {activeComplaints.map((item) => (
-                        <div key={item.id} className="bg-white dark:bg-gray-800 rounded-3xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+                        <div key={item.id} className="bg-white dark:bg-gray-800 rounded-3xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
 
                             {/* Status Pill */}
                             <div className="flex justify-between items-start mb-3 relative z-10">
@@ -278,9 +278,9 @@ export function ResComplaintsTab() {
                     <div className="space-y-2">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium">Issue Type</label>
+                                <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Issue Type</label>
                                 <select
-                                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="flex h-10 w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-100 px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-civic-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                     value={newComplaintData.type}
                                     onChange={(e) => setNewComplaintData({ ...newComplaintData, type: e.target.value })}
                                 >
@@ -293,35 +293,35 @@ export function ResComplaintsTab() {
                                 </select>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium">Date Observed</label>
-                                <Input type="date" value={newComplaintData.date} onChange={(e) => setNewComplaintData({ ...newComplaintData, date: e.target.value })} />
+                                <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Date Observed</label>
+                                <Input type="date" value={newComplaintData.date} onChange={(e) => setNewComplaintData({ ...newComplaintData, date: e.target.value })} className="dark:text-white" />
                             </div>
                         </div>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Description</label>
+                        <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Description</label>
                         <textarea
-                            className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex min-h-[80px] w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-100 px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-civic-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                             placeholder="Provide more details..."
                             value={newComplaintData.description}
                             onChange={(e) => setNewComplaintData({ ...newComplaintData, description: e.target.value })}
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Location</label>
+                        <label className="text-sm font-medium text-gray-900 dark:text-gray-200">Location</label>
                         <Input
                             placeholder="e.g. Main St, or 'My Address'"
                             value={newComplaintData.location}
                             onChange={(e) => setNewComplaintData({ ...newComplaintData, location: e.target.value })}
                         />
                     </div>
-                    <div className="bg-blue-50 text-blue-800 text-xs p-3 rounded-lg flex items-start gap-2">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 text-xs p-3 rounded-lg flex items-start gap-2 border border-blue-100 dark:border-blue-900/30">
                         <Clock className="h-4 w-4 shrink-0 mt-0.5" />
                         <p>Most requests are reviewed within 24 hours. You will receive a notification when the status updates.</p>
                     </div>
                     <div className="flex justify-end pt-4 gap-2">
-                        <Button variant="ghost" onClick={() => setIsComplaintModalOpen(false)}>Cancel</Button>
-                        <Button type="button" className="bg-gray-900 hover:bg-black text-white" onClick={handleCreateComplaint}>Submit Report</Button>
+                        <Button variant="ghost" className="text-gray-500 dark:text-gray-400" onClick={() => setIsComplaintModalOpen(false)}>Cancel</Button>
+                        <Button type="button" className="bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-black dark:hover:bg-gray-100 text-white" onClick={handleCreateComplaint}>Submit Report</Button>
                     </div>
                 </div>
             </Dialog>

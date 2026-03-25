@@ -88,8 +88,8 @@ export function Zones() {
                     return (
                         <div
                             key={zone._id}
-                            className={`group relative overflow-hidden bg-white dark:bg-gray-900 rounded-xl shadow-sm border transition-all duration-300 hover:shadow-md hover:scale-[1.005]
-                                ${isExpanded ? 'border-civic-green-200 dark:border-civic-green-900 ring-4 ring-civic-green-50 dark:ring-civic-green-900/20' : 'border-civic-muted dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-600'}`}
+                            className={`group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-sm border transition-all duration-300 hover:shadow-md hover:scale-[1.005]
+                                ${isExpanded ? 'border-civic-green-200 dark:border-civic-green-900 ring-4 ring-civic-green-50 dark:ring-civic-green-900/20' : 'border-civic-muted dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'}`}
                         >
                             {/* Status Stripe */}
                             <div className={`absolute left-0 top-0 bottom-0 w-1.5 
@@ -175,7 +175,7 @@ export function Zones() {
                             {/* EXPANDED AREA DETAILS */}
                             <div className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
                                 <div className="overflow-hidden">
-                                    <div className={`border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 p-6 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+                                    <div className={`border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-950/50 p-6 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                                         <div className="flex items-center justify-between mb-4">
                                             <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2">
                                                 <Map className="h-4 w-4" /> Area Breakdown
@@ -188,7 +188,7 @@ export function Zones() {
                                         {zone.areas.length > 0 ? (
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                                 {zone.areas.slice(0, 3).map((area: ZoneArea, idx: number) => (
-                                                    <div key={idx} className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-3 shadow-sm hover:shadow-md transition-all group">
+                                                    <div key={idx} className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-3 shadow-sm hover:shadow-md transition-all group">
                                                         <div className="flex justify-between items-start mb-2">
                                                             <div className="flex items-center gap-3">
                                                                 <div className={`p-1.5 rounded-lg ${(Array.isArray(area.type) ? area.type[0] : area.type) === 'park' ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>

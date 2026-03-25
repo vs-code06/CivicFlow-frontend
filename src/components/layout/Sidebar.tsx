@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Map, ListTodo, BarChart3, Settings, ShieldCheck, ChevronLeft, ChevronRight, Truck, MessageSquareWarning, LogOut, Calendar } from 'lucide-react';
+import { LayoutDashboard, Map, ListTodo, BarChart3, Settings, ShieldCheck, ChevronLeft, ChevronRight, Truck, MessageSquareWarning, LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { cn } from '../../lib/utils';
 import { Button } from '../ui/button';
@@ -65,7 +65,7 @@ export function Sidebar({ isCollapsed, onToggle, onNavItemClick }: SidebarProps)
                                     ? "h-11 w-11 justify-center rounded-xl"
                                     : "w-full gap-3 px-4 py-3 rounded-xl",
                                 isActive
-                                    ? "bg-gradient-to-r from-civic-green-50 to-transparent dark:from-civic-green-900/20 text-civic-green-700 dark:text-civic-green-400"
+                                    ? "bg-gradient-to-r from-green-50 to-transparent dark:from-green-900/20 text-green-700 dark:text-green-400"
                                     : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-civic-dark dark:hover:text-white"
                             )
                         }
@@ -73,9 +73,9 @@ export function Sidebar({ isCollapsed, onToggle, onNavItemClick }: SidebarProps)
                         {({ isActive }) => (
                             <>
                                 {isActive && (
-                                    <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-md bg-civic-green-500"></div>
+                                    <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-md bg-green-500"></div>
                                 )}
-                                <item.icon className={cn("shrink-0 transition-colors", isCollapsed ? "h-5 w-5" : "h-4.5 w-4.5", isActive ? "text-civic-green-600 dark:text-civic-green-400" : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300")} />
+                                <item.icon className={cn("shrink-0 transition-colors", isCollapsed ? "h-5 w-5" : "h-4.5 w-4.5", isActive ? "text-green-600 dark:text-green-400" : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300")} />
                                 {!isCollapsed && <span className={cn("text-sm truncate transition-all", isActive ? "font-bold" : "font-medium")}>{item.label}</span>}
                             </>
                         )}
@@ -86,16 +86,16 @@ export function Sidebar({ isCollapsed, onToggle, onNavItemClick }: SidebarProps)
             {/* Sidebar Toggle & Profile Area */}
             <div className="p-3">
                 <div className={cn(
-                    "rounded-2xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 p-3 flex transition-all duration-300 backdrop-blur-sm",
+                    "rounded-2xl bg-gray-50/80 dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700 p-3 flex transition-all duration-300 backdrop-blur-sm",
                     isCollapsed ? "flex-col items-center gap-3" : "px-4 items-center justify-between"
                 )}>
                     <div className="flex items-center gap-3">
                         <div className="relative">
-                            <div className="absolute -inset-0.5 bg-gradient-to-br from-civic-green-200 to-civic-orange-200 dark:from-civic-green-900 dark:to-civic-orange-900 rounded-xl opacity-50"></div>
-                            <div className="relative h-9 w-9 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center text-civic-dark dark:text-gray-200 font-black text-[10px] shadow-sm shrink-0">
+                            <div className="absolute -inset-0.5 bg-gradient-to-br from-green-200 to-green-100 dark:from-green-900 dark:to-green-800 rounded-xl opacity-50"></div>
+                            <div className="relative h-9 w-9 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center text-green-600 dark:text-green-400 font-black text-[10px] shadow-sm shrink-0">
                                 {user?.name?.split(' ').map((n) => n[0]).join('').substring(0, 2).toUpperCase() || 'JD'}
                             </div>
-                            <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-civic-green-500 border-2 border-white dark:border-gray-900"></span>
+                            <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-900"></span>
                         </div>
                         {!isCollapsed && (
                             <div className="flex flex-col truncate">
@@ -110,7 +110,7 @@ export function Sidebar({ isCollapsed, onToggle, onNavItemClick }: SidebarProps)
                         size="icon"
                         onClick={onToggle}
                         className={cn(
-                            "h-7 w-7 text-gray-400 hover:text-civic-dark dark:hover:text-white hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all shadow-none hover:shadow-sm",
+                            "h-7 w-7 text-gray-400 hover:text-civic-dark dark:hover:text-white hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-all shadow-none hover:shadow-sm",
                             isCollapsed ? "mt-1" : ""
                         )}
                     >

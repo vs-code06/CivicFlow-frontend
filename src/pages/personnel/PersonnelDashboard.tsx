@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Phone } from 'lucide-react';
-import { Button } from '../../components/ui/button';
 import { cn } from '../../lib/utils';
 import { Header } from './components/Header';
 import { PersonnelSidebar } from './components/PersonnelSidebar';
@@ -15,6 +13,7 @@ import { SettingsTab } from './tabs/SettingsTab';
 import { VehicleTab } from './tabs/VehicleTab';
 import { HistoryTab } from './tabs/HistoryTab';
 import { LeaveTab } from './tabs/LeaveTab';
+import { ChatbotWidget } from '../../components/common/ChatbotWidget';
 
 export function PersonnelDashboard() {
     const { user, logout, refreshUser } = useAuth();
@@ -128,7 +127,7 @@ export function PersonnelDashboard() {
     };
 
     return (
-        <div className="flex h-screen bg-gray-50 dark:bg-gray-950 overflow-hidden">
+        <div className="flex h-screen bg-gray-50 dark:bg-gray-950 overflow-hidden text-civic-dark dark:text-gray-200">
 
             {/* LEFT SIDEBAR - Responsive Wrapper */}
             <div className={cn(
@@ -161,7 +160,7 @@ export function PersonnelDashboard() {
             <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
 
                 {/* Page Header - Fixed at Top */}
-                <div className="shrink-0 z-10 bg-white dark:bg-gray-950/80 backdrop-blur-md transition-all duration-200">
+                <div className="shrink-0 z-10 bg-white dark:bg-gray-950/80 backdrop-blur-md transition-all duration-200 border-b border-gray-100 dark:border-gray-800">
                     <Header
                         user={user}
                         onLogout={logout}
@@ -223,16 +222,8 @@ export function PersonnelDashboard() {
                     </div>
                 </div>
 
-                {/* Floating Support Button */}
-                {activeTab !== 'profile' && activeTab !== 'settings' && taskStatus !== 'pending' && (
-                    <div className="absolute bottom-6 right-8 z-40">
-                        <Button className="h-14 w-14 rounded-full bg-civic-dark shadow-2xl shadow-gray-400 flex items-center justify-center hover:scale-110 transition-transform cursor-pointer">
-                            <Phone className="h-6 w-6 text-white" />
-                        </Button>
-                    </div>
-                )}
-
             </div>
+            <ChatbotWidget />
         </div>
     );
 }

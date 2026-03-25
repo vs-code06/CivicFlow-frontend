@@ -78,7 +78,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
     }, []);
 
     return (
-        <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-white/20 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md px-8 transition-all shadow-sm">
+        <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-white/20 dark:border-zinc-800/50 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md px-8 transition-all shadow-sm">
             <div className="flex items-center gap-4 w-full max-w-md">
                 <Button variant="ghost" size="icon" className="lg:hidden" onClick={onMenuClick}>
                     <Menu className="h-5 w-5" />
@@ -90,13 +90,13 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onFocus={() => setIsSearchFocused(true)}
                         placeholder="Search operations, features, settings..."
-                        className="pl-10 w-full bg-gray-100/50 dark:bg-gray-800 border-transparent dark:border-gray-700 dark:text-gray-200 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-civic-green-100 dark:focus:ring-civic-green-900/30 focus:border-civic-green-200 transition-all shadow-none h-10 rounded-full"
+                        className="pl-10 w-full bg-gray-100/50 dark:bg-zinc-900/50 border-transparent dark:border-zinc-800 dark:text-gray-200 focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 focus:ring-civic-green-100 dark:focus:ring-civic-green-900/30 focus:border-civic-green-200 transition-all shadow-none h-10 rounded-full"
                     />
                     
                     {/* Search Dropdown Palette */}
                     {isSearchFocused && searchQuery.length > 0 && (
-                        <div className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
-                            <div className="p-2 text-[10px] font-black text-gray-400 uppercase tracking-widest bg-gray-50/80 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
+                        <div className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white dark:bg-[#0a0a0a] border border-gray-100 dark:border-zinc-800 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
+                            <div className="p-2 text-[10px] font-black text-gray-400 uppercase tracking-widest bg-gray-50/80 dark:bg-zinc-900/50 border-b border-gray-100 dark:border-zinc-800">
                                 Quick Navigation
                             </div>
                             <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
@@ -109,10 +109,10 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                                                 setSearchQuery('');
                                                 setIsSearchFocused(false);
                                             }}
-                                            className="flex flex-row items-center gap-3 p-3 hover:bg-civic-green-50 dark:hover:bg-gray-800 cursor-pointer transition-colors group/item"
+                                            className="flex flex-row items-center gap-3 p-3 hover:bg-civic-green-50 dark:hover:bg-zinc-900 cursor-pointer transition-colors group/item"
                                         >
-                                            <div className="h-8 w-8 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover/item:bg-civic-green-100 dark:group-hover/item:bg-civic-green-900/30 flex items-center justify-center shrink-0 transition-colors">
-                                                <f.icon className="h-4 w-4 text-gray-500 dark:text-gray-400 group-hover/item:text-civic-green-600 dark:group-hover/item:text-civic-green-400 transition-colors" />
+                                            <div className="h-8 w-8 rounded-lg bg-gray-100 dark:bg-zinc-900 group-hover/item:bg-civic-green-100 dark:group-hover/item:bg-civic-green-900/30 flex items-center justify-center shrink-0 transition-colors">
+                                                <f.icon className="h-4 w-4 text-gray-500 dark:text-zinc-400 group-hover/item:text-civic-green-600 dark:group-hover/item:text-civic-green-400 transition-colors" />
                                             </div>
                                             <div>
                                                 <h4 className="text-sm font-bold text-civic-dark dark:text-white group-hover/item:text-civic-green-700 dark:group-hover/item:text-civic-green-400 transition-colors leading-tight">
@@ -126,10 +126,10 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                                     ))
                                 ) : (
                                     <div className="p-8 text-center">
-                                        <div className="h-10 w-10 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <div className="h-10 w-10 bg-gray-50 dark:bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-3">
                                             <Search className="h-4 w-4 text-gray-400" />
                                         </div>
-                                        <p className="text-sm font-bold text-gray-500 dark:text-gray-400">No operations found</p>
+                                        <p className="text-sm font-bold text-gray-500 dark:text-zinc-400">No operations found</p>
                                         <p className="text-xs text-gray-400 font-medium mt-1">Try searching for features like "Fleet" or "Settings"</p>
                                     </div>
                                 )}
@@ -141,14 +141,14 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
 
             <div className="flex items-center gap-4 ml-auto">
                 {/* Date/Time Widget */}
-                <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 rounded-full border border-gray-100 dark:border-gray-700">
+                <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-zinc-900 rounded-full border border-gray-100 dark:border-zinc-800">
                     <Calendar className="h-3.5 w-3.5 text-gray-400" />
-                    <span className="text-xs font-bold text-gray-600 dark:text-gray-300">
+                    <span className="text-xs font-bold text-gray-600 dark:text-zinc-300">
                         {format(currentTime, "MMM dd '•' HH:mm")}
                     </span>
                 </div>
 
-                <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
+                <div className="h-6 w-px bg-gray-200 dark:bg-zinc-800 mx-2"></div>
 
                 <Button variant="ghost" size="icon" className="relative shrink-0 text-gray-400 hover:text-civic-dark hover:bg-civic-green-50/50 rounded-full h-10 w-10 transition-colors">
                     <Bell className="h-5 w-5" />

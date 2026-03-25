@@ -13,6 +13,7 @@ import { ResComplaintsTab } from './tabs/ResComplaintsTab';
 import { ResEducationTab } from './tabs/ResEducationTab';
 import { ResSettingsTab } from './tabs/ResSettingsTab';
 import { ResScheduleTab } from './tabs/ResScheduleTab';
+import { ChatbotWidget } from '../../components/common/ChatbotWidget';
 
 export function ResidentDashboard() {
     const { user, updateProfile } = useAuth();
@@ -26,7 +27,7 @@ export function ResidentDashboard() {
     const [availableZones, setAvailableZones] = useState<Zone[]>([]);
     const [tempZone, setTempZone] = useState<Zone | null>(null);
     const [zoneData, setZoneData] = useState<Zone | null>(null);
-    const [isLoadingZone, setIsLoadingZone] = useState(false);
+
 
     // Fetch All Zones for Selection
     useEffect(() => {
@@ -46,7 +47,7 @@ export function ResidentDashboard() {
         const fetchZone = async () => {
             if (user?.zoneId) {
                 try {
-                    setIsLoadingZone(true);
+
                     const data = await getZoneById(user.zoneId);
                     setZoneData(data);
                     if (data) {
@@ -55,7 +56,7 @@ export function ResidentDashboard() {
                 } catch (error) {
                     console.error("Failed to fetch zone", error);
                 } finally {
-                    setIsLoadingZone(false);
+
                 }
             }
         };
@@ -92,7 +93,7 @@ export function ResidentDashboard() {
     if (!user) return <div className="flex items-center justify-center h-screen"><Loader2 className="h-8 w-8 animate-spin text-blue-600" /></div>;
 
     return (
-        <div className="flex h-screen bg-gray-50 dark:bg-gray-950 font-sans overflow-hidden">
+        <div className="flex h-screen bg-gray-50 dark:bg-gray-950 font-sans overflow-hidden text-civic-dark dark:text-gray-200">
 
             {/* Sidebar: Hidden on Mobile, Visible on Desktop */}
             <div className={cn(
@@ -158,7 +159,7 @@ export function ResidentDashboard() {
                                     size="sm"
                                     variant="ghost"
                                     onClick={() => setIsLocationDialogOpen(true)}
-                                    className="ml-1 text-blue-600 hover:text-blue-700 font-bold text-xs h-7 hover:bg-white"
+                                    className="ml-1 text-blue-600 hover:text-blue-700 font-bold text-xs h-7 hover:bg-white dark:hover:bg-gray-800"
                                 >
                                     Change
                                 </Button>
@@ -232,6 +233,7 @@ export function ResidentDashboard() {
                 </div>
 
             </div>
+            <ChatbotWidget />
         </div>
     );
 }

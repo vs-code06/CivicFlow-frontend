@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { getMyComplaints, updateComplaint } from '../../api/complaints'; // Assuming we can use updateComplaint, or just client.put directly
 import client from '../../api/client'; // Client is imported already
 import { PageTransition } from '../../components/ui/page-transition';
 import {
@@ -155,7 +154,7 @@ export function Complaints() {
 
                 {/* Stats Cards - Note: ideally these counts come from a stats endpoint */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Total Reports</p>
                             <p className="text-2xl font-black text-civic-dark dark:text-white mt-1">{stats.total}</p>
@@ -165,7 +164,7 @@ export function Complaints() {
                         </div>
                     </div>
                     {/* Placeholder stats for specific statuses as we don't have aggregated stats api yet */}
-                    <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Pending</p>
                             <p className="text-2xl font-black text-red-600 mt-1">{stats.pending}</p>
@@ -174,7 +173,7 @@ export function Complaints() {
                             <AlertTriangle className="h-5 w-5 text-red-500" />
                         </div>
                     </div>
-                    <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">In Progress</p>
                             <p className="text-2xl font-black text-orange-600 mt-1">{stats.inProgress}</p>
@@ -183,7 +182,7 @@ export function Complaints() {
                             <Clock className="h-5 w-5 text-orange-500" />
                         </div>
                     </div>
-                    <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm flex items-center justify-between">
+                    <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Resolved</p>
                             <p className="text-2xl font-black text-green-600 mt-1">{stats.resolved}</p>
@@ -196,7 +195,7 @@ export function Complaints() {
             </div>
 
             {/* MAIN TABLE AREA */}
-            <div className="flex-1 bg-white dark:bg-gray-900 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col overflow-hidden relative z-0">
+            <div className="flex-1 bg-white dark:bg-gray-800 rounded-[2rem] border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col overflow-hidden relative z-0">
 
                 {/* Toolbar */}
                 <div className="p-4 border-b border-gray-50 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -391,7 +390,7 @@ export function Complaints() {
                 </div>
 
                 {/* Footer / Pagination */}
-                <div className="p-4 border-t border-gray-50 dark:border-gray-800 flex justify-between items-center bg-white dark:bg-gray-900">
+                <div className="p-4 border-t border-gray-50 dark:border-gray-800 flex justify-between items-center bg-white dark:bg-gray-900 sm:pr-24">
                     <p className="text-xs font-bold text-gray-400">
                         Showing {((page - 1) * itemsPerPage) + 1} - {Math.min(page * itemsPerPage, data.total)} of {data.total}
                     </p>
@@ -422,7 +421,7 @@ export function Complaints() {
             {/* SIDE DRAWER (DETAILS) */}
             <div
                 className={cn(
-                    "absolute top-0 bottom-0 right-0 w-full md:w-[450px] bg-white dark:bg-gray-900 md:rounded-l-[2rem] shadow-2xl border-l border-gray-100 dark:border-gray-800 transform transition-transform duration-300 ease-out z-20 flex flex-col overflow-hidden",
+                    "absolute top-0 bottom-0 right-0 w-full md:w-[450px] bg-white dark:bg-gray-800 md:rounded-l-[2rem] shadow-2xl border-l border-gray-100 dark:border-gray-700 transform transition-transform duration-300 ease-out z-20 flex flex-col overflow-hidden",
                     selectedComplaint ? "translate-x-0" : "translate-x-[110%]"
                 )}
             >

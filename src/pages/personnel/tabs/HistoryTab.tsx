@@ -42,14 +42,14 @@ export function HistoryTab() {
                         <p className="text-3xl font-black">{totalHours.toFixed(0)}</p>
                         <p className="text-xs text-gray-400 font-medium">Est. Hours</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                    <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Routes</p>
                         <p className="text-3xl font-black text-civic-dark dark:text-white">{totalRoutes}</p>
                         <p className="text-xs text-green-500 font-bold flex items-center gap-1">
                             <CheckCircle2 className="h-3 w-3" /> Completed
                         </p>
                     </div>
-                    <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                    <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Efficiency</p>
                         <p className="text-3xl font-black text-civic-dark dark:text-white">{totalRoutes > 0 ? `${efficiency}%` : '--'}</p>
                         <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">Perfect Rate</p>
@@ -63,7 +63,7 @@ export function HistoryTab() {
                         </div>
                     ) : history.length > 0 ? (
                         history.map((task: any) => (
-                            <div key={task._id} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-5 shadow-sm flex items-start gap-4">
+                            <div key={task._id} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 shadow-sm flex items-start gap-4">
                                 <div className="h-10 w-10 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center shrink-0">
                                     <Truck className="h-5 w-5 text-green-600 dark:text-green-400" />
                                 </div>

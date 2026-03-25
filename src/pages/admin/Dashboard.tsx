@@ -8,9 +8,14 @@ import {
     Leaf,
     TrendingUp,
     MoreHorizontal,
-    Loader2
+    Loader2,
+    Truck,
+    CheckCircle2,
+    XCircle,
+    Send
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
+import { Dialog } from '../../components/ui/dialog';
 import client from '../../api/client';
 import { format } from 'date-fns';
 
@@ -63,6 +68,12 @@ export function Dashboard() {
     const [stats, setStats] = useState<DashboardStats | null>(null);
     const [loading, setLoading] = useState(true);
 
+    // Dispatch Modal State
+    const [isDispatchOpen, setIsDispatchOpen] = useState(false);
+    const [dispatching, setDispatching] = useState(false);
+    const [dispatchResult, setDispatchResult] = useState<{ created: any[]; skipped: any[]; message: string } | null>(null);
+    const [dispatchError, setDispatchError] = useState<string | null>(null);
+
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -85,6 +96,30 @@ export function Dashboard() {
             </div>
         );
     }
+
+    const handleDispatch = async () => {
+        setDispatching(true);
+        setDispatchError(null);
+        setDispatchResult(null);
+        try {
+            const { data } = await client.post('/tasks/dispatch-today');
+            setDispatchResult(data);
+            // Refresh stats after dispatch
+            const statsRes = await client.get('/dashboard/stats');
+            setStats(statsRes.data);
+        } catch (err: any) {
+            setDispatchError(err?.response?.data?.message || 'Failed to dispatch tasks. Please try again.');
+        } finally {
+            setDispatching(false);
+        }
+    };
+
+    const openDispatchModal = () => {
+        setDispatchResult(null);
+        setDispatchError(null);
+        setDispatching(false);
+        setIsDispatchOpen(true);
+    };
 
     return (
         <div className="max-w-[1600px] mx-auto pb-12">
@@ -145,7 +180,7 @@ export function Dashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                     {/* Card 1: Carbon - Simple Stat */}
-                    <div className="p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm hover:shadow-lg hover:shadow-civic-green-500/5 hover:-translate-y-1 transition-all duration-300 group">
+                    <div className="p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm hover:shadow-lg hover:shadow-civic-green-500/5 hover:-translate-y-1 transition-all duration-300 group">
                         <div className="flex justify-between items-start mb-4">
                             <div className="bg-civic-green-50 dark:bg-civic-green-900/20 text-civic-green-600 dark:text-civic-green-400 p-2.5 rounded-xl group-hover:bg-civic-green-500 group-hover:text-white transition-colors">
                                 <Leaf className="h-6 w-6" />
@@ -181,7 +216,7 @@ export function Dashboard() {
                     </div>
 
                     {/* Card 3: Route Time */}
-                    <div className="p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300 group">
+                    <div className="p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300 group">
                         <div className="flex justify-between items-start mb-4">
                             <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-500 dark:text-blue-400 p-2.5 rounded-xl group-hover:bg-blue-500 group-hover:text-white transition-colors">
                                 <Clock className="h-6 w-6" />
@@ -195,7 +230,7 @@ export function Dashboard() {
                     </div>
 
                     {/* Card 4: Total Bins */}
-                    <div className="p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm hover:shadow-lg hover:shadow-purple-500/5 hover:-translate-y-1 transition-all duration-300 group">
+                    <div className="p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm hover:shadow-lg hover:shadow-purple-500/5 hover:-translate-y-1 transition-all duration-300 group">
                         <div className="flex justify-between items-start mb-4">
                             <div className="bg-purple-50 dark:bg-purple-900/20 text-purple-500 dark:text-purple-400 p-2.5 rounded-xl group-hover:bg-purple-500 group-hover:text-white transition-colors">
                                 <MapPin className="h-6 w-6" />
@@ -257,7 +292,10 @@ export function Dashboard() {
                                     </p>
 
                                     <div className="flex gap-3 pl-3">
-                                        <Button className="flex-1 bg-civic-orange-500 hover:bg-civic-orange-600 text-white font-bold text-xs h-10 rounded-lg shadow-sm shadow-civic-orange-500/20">
+                                        <Button
+                                            onClick={openDispatchModal}
+                                            className="flex-1 bg-civic-orange-500 hover:bg-civic-orange-600 text-white font-bold text-xs h-10 rounded-lg shadow-sm shadow-civic-orange-500/20"
+                                        >
                                             Dispatch
                                         </Button>
                                         <Button variant="ghost" className="flex-1 text-gray-500 dark:text-gray-400 font-bold text-xs h-10 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
@@ -300,7 +338,7 @@ export function Dashboard() {
                 {/* Right Column: Operational Log */}
                 <div className="space-y-6">
                     <div className="flex items-center gap-3 mb-1">
-                        <div className="p-2 bg-civic-muted/30 dark:bg-gray-800 rounded-lg">
+                        <div className="p-2 bg-civic-muted/30 dark:bg-gray-900 rounded-lg">
                             <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                         </div>
                         <h2 className="text-lg font-bold text-civic-dark dark:text-white tracking-tight">Recent Activity</h2>
@@ -328,6 +366,152 @@ export function Dashboard() {
                     </div>
                 </div>
             </div>
+
+            {/* DISPATCH MODAL */}
+            <Dialog
+                isOpen={isDispatchOpen}
+                onClose={() => setIsDispatchOpen(false)}
+                title="Dispatch Collection Tasks"
+                description="Create and assign today's scheduled pickup tasks for all zones."
+            >
+                <div className="space-y-6">
+                    {/* Pre-dispatch state */}
+                    {!dispatching && !dispatchResult && !dispatchError && (
+                        <>
+                            <div className="bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-800 rounded-xl p-4">
+                                <div className="flex items-start gap-3">
+                                    <Truck className="h-5 w-5 text-orange-600 mt-0.5 shrink-0" />
+                                    <div>
+                                        <h4 className="text-sm font-bold text-orange-900 dark:text-orange-200 mb-1">What happens when you dispatch?</h4>
+                                        <ul className="text-xs text-orange-700 dark:text-orange-300 space-y-1.5">
+                                            <li className="flex items-center gap-2">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 shrink-0" />
+                                                Creates collection tasks for all zones scheduled today
+                                            </li>
+                                            <li className="flex items-center gap-2">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 shrink-0" />
+                                                Tasks appear in the Tasks section as "Pending"
+                                            </li>
+                                            <li className="flex items-center gap-2">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 shrink-0" />
+                                                Assign drivers and vehicles from the Tasks page
+                                            </li>
+                                            <li className="flex items-center gap-2">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-orange-500 shrink-0" />
+                                                Zones already dispatched today will be skipped
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-3">
+                                <Button
+                                    variant="outline"
+                                    className="flex-1 h-11 rounded-xl font-bold"
+                                    onClick={() => setIsDispatchOpen(false)}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    className="flex-1 h-11 rounded-xl font-bold bg-civic-orange-500 hover:bg-civic-orange-600 text-white shadow-lg shadow-civic-orange-500/20"
+                                    onClick={handleDispatch}
+                                >
+                                    <Send className="h-4 w-4 mr-2" /> Dispatch Now
+                                </Button>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Dispatching spinner */}
+                    {dispatching && (
+                        <div className="flex flex-col items-center justify-center py-8">
+                            <div className="relative">
+                                <div className="h-16 w-16 rounded-full border-4 border-orange-100 dark:border-orange-900/30" />
+                                <div className="absolute inset-0 h-16 w-16 rounded-full border-4 border-transparent border-t-civic-orange-500 animate-spin" />
+                                <Truck className="absolute inset-0 m-auto h-6 w-6 text-civic-orange-500" />
+                            </div>
+                            <p className="text-sm font-bold text-gray-900 dark:text-white mt-5">Dispatching Tasks...</p>
+                            <p className="text-xs text-gray-500 mt-1">Creating collection assignments for all scheduled zones</p>
+                        </div>
+                    )}
+
+                    {/* Error state */}
+                    {dispatchError && (
+                        <div className="text-center py-6">
+                            <div className="h-14 w-14 mx-auto mb-4 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
+                                <XCircle className="h-7 w-7 text-red-500" />
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Dispatch Failed</h3>
+                            <p className="text-sm text-gray-500 mb-6">{dispatchError}</p>
+                            <div className="flex gap-3">
+                                <Button variant="outline" className="flex-1 h-10 rounded-xl font-bold" onClick={() => setIsDispatchOpen(false)}>Close</Button>
+                                <Button className="flex-1 h-10 rounded-xl font-bold bg-civic-orange-500 hover:bg-civic-orange-600 text-white" onClick={handleDispatch}>Retry</Button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Success result */}
+                    {dispatchResult && (
+                        <div className="space-y-4">
+                            <div className="text-center">
+                                <div className="h-14 w-14 mx-auto mb-4 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center">
+                                    <CheckCircle2 className="h-7 w-7 text-green-500" />
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Dispatch Complete!</h3>
+                                <p className="text-sm text-gray-500">{dispatchResult.message}</p>
+                            </div>
+
+                            {/* Created tasks */}
+                            {dispatchResult.created.length > 0 && (
+                                <div className="space-y-2">
+                                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Tasks Created</h4>
+                                    <div className="space-y-1.5 max-h-[200px] overflow-y-auto">
+                                        {dispatchResult.created.map((item: any, i: number) => (
+                                            <div key={i} className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-100 dark:border-green-800">
+                                                <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                                                <div className="flex-1">
+                                                    <span className="text-sm font-bold text-gray-900 dark:text-white">{item.zone}</span>
+                                                    <div className="flex gap-1.5 mt-0.5">
+                                                        {item.types?.map((t: string) => (
+                                                            <span key={t} className="text-[10px] font-bold uppercase text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">{t}</span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Skipped zones */}
+                            {dispatchResult.skipped.length > 0 && (
+                                <div className="space-y-2">
+                                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Skipped</h4>
+                                    <div className="space-y-1.5">
+                                        {dispatchResult.skipped.map((item: any, i: number) => (
+                                            <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+                                                <Clock className="h-4 w-4 text-gray-400 shrink-0" />
+                                                <div>
+                                                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">{item.zone}</span>
+                                                    <span className="text-xs text-gray-400 ml-2">— {item.reason}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <Button
+                                className="w-full h-11 rounded-xl font-bold bg-civic-dark dark:bg-white text-white dark:text-civic-dark shadow-lg"
+                                onClick={() => setIsDispatchOpen(false)}
+                            >
+                                Done
+                            </Button>
+                        </div>
+                    )}
+                </div>
+            </Dialog>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { CheckCircle2, Leaf, Award, AlertTriangle } from 'lucide-react';
+import { Leaf, Award, AlertTriangle } from 'lucide-react';
 
 interface EfficiencyGaugeProps {
     score: number;
@@ -16,7 +16,7 @@ interface EfficiencyGaugeProps {
 
 export function EfficiencyGauge({ score, metrics }: EfficiencyGaugeProps) {
     // SVG Config
-    const size = 180;
+
     const strokeWidth = 15;
     const radius = 60; // (size - strokeWidth * 2) / 2 approx but fixed for simplicity
     const circumference = 2 * Math.PI * radius;

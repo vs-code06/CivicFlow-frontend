@@ -12,8 +12,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu"
-import { Search, Filter, Calendar, LayoutGrid, List as ListIcon, MoreHorizontal, Clock, AlertCircle, MapPin, User, CheckCircle2, Truck, AlertTriangle, Plus, ChevronLeft, ChevronRight, X, Loader2 } from 'lucide-react';
-import { getZones } from '../../api/zones';
+import { Search, Filter, Calendar, LayoutGrid, List as ListIcon, MoreHorizontal, Clock, AlertCircle, MapPin, User, CheckCircle2, Truck, AlertTriangle, Plus, ChevronLeft, ChevronRight, X, Loader2, Send, XCircle } from 'lucide-react';
 import { TaskCreationModal } from './components/TaskCreationModal';
 
 const PriorityBadge = ({ priority }: { priority: string }) => {
@@ -24,7 +23,7 @@ const PriorityBadge = ({ priority }: { priority: string }) => {
         Low: 'bg-civic-green-50 text-civic-green-600 border-civic-green-200',
     };
     return (
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${styles[priority as keyof typeof styles] || styles.Low}`}>
+        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border uppercase tracking-widest transition-all duration-300 ${styles[priority as keyof typeof styles] || styles.Low} dark:glow-green dark:text-glow-green`}>
             {priority}
         </span>
     );
@@ -39,9 +38,12 @@ const priorityColors = {
 
 const TaskCard = ({ task, onDelete, onEdit }: { task: any, onDelete: (id: string) => void, onEdit: (task: any) => void }) => {
     return (
-        <div className={`group bg-white dark:bg-gray-900 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer border-t-[4px] flex flex-col justify-between min-h-[220px] ${priorityColors[task.priority as keyof typeof priorityColors] || priorityColors.Low}`}>
-            <div>
-                <div className="flex justify-between items-start mb-4">
+        <div className={`group glass-card dark:bg-gray-900/40 p-3 sm:p-4 rounded-xl border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl hover:dark:glow-green transition-all duration-500 cursor-pointer border-t-[4px] flex flex-col gap-3 relative overflow-hidden ${priorityColors[task.priority as keyof typeof priorityColors] || priorityColors.Low}`}>
+            {/* Subtle Gradient Glow inside the card */}
+            <div className="absolute -right-10 -top-10 w-32 h-32 bg-civic-green-500/5 blur-[50px] pointer-events-none group-hover:bg-civic-green-500/10 transition-all duration-500" />
+            
+            <div className="relative z-10">
+                <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center gap-2">
                         <span className="font-mono text-[11px] text-gray-400 dark:text-gray-500 font-bold bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md">{task.id}</span>
                         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border
@@ -56,15 +58,15 @@ const TaskCard = ({ task, onDelete, onEdit }: { task: any, onDelete: (id: string
                         <DropdownMenuTrigger className="h-8 w-8 flex items-center justify-center rounded-xl bg-gray-50 hover:bg-civic-dark hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-400 transition-colors outline-none ring-0">
                             <MoreHorizontal className="h-4 w-4" />
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-40 rounded-xl">
-                            <DropdownMenuLabel className="text-xs text-gray-400 font-bold uppercase">Actions</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={() => onEdit(task)} className="font-medium cursor-pointer">
+                        <DropdownMenuContent align="start" side="left" className="w-36 rounded-xl p-1 dark:bg-gray-950 dark:border-white/20 shadow-2xl border border-gray-100 dark:shadow-black/50">
+                            <DropdownMenuLabel className="text-[9px] text-gray-400 font-bold uppercase px-2 py-1">Actions</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={() => onEdit(task)} className="text-xs font-semibold cursor-pointer rounded-lg px-2 py-1.5 focus:bg-civic-dark focus:text-white dark:focus:bg-white/10">
                                 Edit Task
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 onClick={() => onDelete(task._id)}
-                                className="text-red-600 dark:text-red-400 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/10 font-bold cursor-pointer"
+                                className="text-xs text-red-600 dark:text-red-400 hover:text-red-700 focus:bg-red-50 dark:focus:bg-red-900/20 font-bold cursor-pointer rounded-lg px-2 py-1.5"
                             >
                                 Delete Task
                             </DropdownMenuItem>
@@ -72,40 +74,42 @@ const TaskCard = ({ task, onDelete, onEdit }: { task: any, onDelete: (id: string
                     </DropdownMenu>
                 </div>
 
-                <h4 className="font-extrabold text-civic-dark dark:text-white text-[15px] mb-4 leading-snug group-hover:text-civic-green-600 dark:group-hover:text-civic-green-400 transition-colors line-clamp-2">
+                <h4 className="font-extrabold text-civic-dark dark:text-white text-[14px] mb-2 leading-tight group-hover:text-civic-green-600 dark:group-hover:text-civic-green-400 transition-colors line-clamp-1">
                     {task.title}
                 </h4>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex items-center gap-2 mb-2 overflow-hidden">
                     <PriorityBadge priority={task.priority} />
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                        <MapPin className="h-3 w-3 text-civic-dark dark:text-white" /> {task.zone}
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-white/5 uppercase tracking-wider flex items-center gap-1.5 truncate">
+                        <MapPin className="h-3 w-3 text-civic-dark dark:text-white shrink-0" /> 
+                        <span className="truncate">{task.zone}</span>
                     </span>
                 </div>
             </div>
 
-            <div className="space-y-3 pt-4 border-t border-gray-50 dark:border-gray-800/50 mt-auto">
-                <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-medium bg-gray-50 dark:bg-gray-800 px-2.5 py-1.5 rounded-lg w-full">
-                        <User className="h-4 w-4 text-civic-dark dark:text-white shrink-0" />
+            <div className="pt-3 border-t border-gray-50 dark:border-white/5 relative z-10">
+                <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 text-[11px] text-gray-600 dark:text-gray-400 font-bold bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-lg truncate flex-1 transition-colors group-hover:bg-civic-green-500/10">
+                        <User className="h-3.5 w-3.5 text-civic-dark dark:text-civic-green-400 shrink-0" />
                         <span className="truncate">{task.driver}</span>
                     </div>
-                </div>
 
-                <div className="flex items-center justify-between text-xs">
-                    {task.truck !== '-' ? (
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-medium">
-                            <Truck className="h-4 w-4 text-civic-dark dark:text-white shrink-0" />
-                            <span className="font-mono bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md">{task.truck}</span>
-                        </div>
-                    ) : (
-                        <div className="text-gray-400 dark:text-gray-600 font-medium italic">No Vehicle</div>
-                    )}
-                    {task.status !== 'Completed' && (
-                        <div className="font-bold text-civic-dark dark:text-gray-300 flex items-center gap-1.5">
-                            <Clock className="h-3.5 w-3.5 text-orange-500" /> {task.due}
-                        </div>
-                    )}
+                    <div className="flex items-center gap-3 shrink-0">
+                        {task.truck !== '-' ? (
+                            <div className="flex items-center gap-2 text-[11px] text-gray-600 dark:text-gray-400 font-bold">
+                                <Truck className="h-3.5 w-3.5 text-civic-dark dark:text-civic-green-400 shrink-0" />
+                                <span className="font-mono bg-gray-50 dark:bg-white/5 px-1.5 py-0.5 rounded-md">{task.truck}</span>
+                            </div>
+                        ) : (
+                            <div className="text-[10px] text-gray-400 dark:text-gray-500 font-medium italic">No Vehicle</div>
+                        )}
+                        
+                        {task.status !== 'Completed' && (
+                            <div className="flex items-center gap-1 text-[10px] font-black text-civic-dark dark:text-civic-green-400">
+                                <Clock className="h-3 w-3 animate-pulse" /> {task.due}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,7 +119,6 @@ const TaskCard = ({ task, onDelete, onEdit }: { task: any, onDelete: (id: string
 export function Tasks() {
     const [viewMode, setViewMode] = useState<'board' | 'list'>('board');
     const [tasks, setTasks] = useState<any[]>([]);
-    const [zones, setZones] = useState<any[]>([]);
     const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -136,17 +139,16 @@ export function Tasks() {
     });
     const [dateRange, setDateRange] = useState<{ from: string, to: string }>({ from: '', to: '' });
 
-    // Form State
-    const [newTask, setNewTask] = useState({
-        title: '',
-        location: '',
-        zoneId: '',
-        priority: 'Medium',
-        status: 'Pending',
-        assignedTo: null,
-        vehicleId: null,
-        estimatedTime: '2h'
-    });
+
+    // Dispatch Modal State
+    const [isDispatchOpen, setIsDispatchOpen] = useState(false);
+    const [dispatching, setDispatching] = useState(false);
+    const [dispatchResult, setDispatchResult] = useState<{ created: any[]; skipped: any[]; message: string } | null>(null);
+    const [dispatchError, setDispatchError] = useState<string | null>(null);
+    const [dispatchDrivers, setDispatchDrivers] = useState<any[]>([]);
+    const [dispatchVehicles, setDispatchVehicles] = useState<any[]>([]);
+    const [selectedDriver, setSelectedDriver] = useState('');
+    const [selectedVehicle, setSelectedVehicle] = useState('');
 
     const columns = ['Pending', 'In Progress', 'Review', 'Completed'];
 
@@ -201,19 +203,6 @@ export function Tasks() {
         }
     }, [getQueryString]);
 
-    // Fetch Zones for Dropdown
-    useEffect(() => {
-        const fetchZonesData = async () => {
-            try {
-                const data = await getZones();
-                setZones(data);
-            } catch (error) {
-                console.error("Failed to fetch zones for dropdown", error);
-            }
-        };
-        fetchZonesData();
-    }, []);
-
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchTasks(); // Debounce search
@@ -227,36 +216,9 @@ export function Tasks() {
         setCurrentPage(1);
     }, [searchQuery, filters, dateRange]);
 
-    const handleCreateTask = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            if (editingTask) {
-                await client.put(`/tasks/${editingTask._id}`, newTask);
-            } else {
-                await client.post('/tasks', newTask);
-            }
-            fetchTasks(); // Refresh
-            setIsCreateTaskOpen(false);
-            setEditingTask(null);
-            setEditingTask(null);
-            setNewTask({ title: '', location: '', zoneId: '', priority: 'Medium', status: 'Pending', assignedTo: null, vehicleId: null, estimatedTime: '2h' });
-        } catch (error) {
-            console.error("Failed to save task", error);
-        }
-    };
 
     const handleEditClick = (task: any) => {
         setEditingTask(task);
-        setNewTask({
-            title: task.title,
-            location: task.location || '',
-            zoneId: task.zoneId?._id || task.zoneId || '',
-            priority: task.priority,
-            status: task.status,
-            assignedTo: task.assignedTo,
-            vehicleId: task.vehicleId,
-            estimatedTime: task.estimatedTime || '2h'
-        });
         setIsCreateTaskOpen(true);
     };
 
@@ -309,11 +271,34 @@ export function Tasks() {
                         </button>
                     </div>
                     <Button
+                        onClick={async () => {
+                            // Load drivers and vehicles, then open modal
+                            try {
+                                const { getPersonnel } = await import('../../api/users');
+                                const [drivers, vehiclesRes] = await Promise.all([
+                                    getPersonnel(),
+                                    client.get('/vehicles')
+                                ]);
+                                setDispatchDrivers(drivers || []);
+                                setDispatchVehicles(Array.isArray(vehiclesRes.data) ? vehiclesRes.data : vehiclesRes.data.vehicles || []);
+                            } catch (e) {
+                                console.error('Failed to load dispatch data', e);
+                            }
+                            setDispatchResult(null);
+                            setDispatchError(null);
+                            setDispatching(false);
+                            setSelectedDriver('');
+                            setSelectedVehicle('');
+                            setIsDispatchOpen(true);
+                        }}
+                        variant="outline"
+                        className="font-bold shadow-sm rounded-lg border-civic-green-600 text-civic-green-600 hover:bg-civic-green-50 dark:hover:bg-civic-green-900/20"
+                    >
+                        <Calendar className="h-4 w-4 mr-2" /> Dispatch Today
+                    </Button>
+                    <Button
                         onClick={() => {
                             setEditingTask(null);
-                            setEditingTask(null);
-                            setNewTask({ title: '', location: '', zoneId: '', priority: 'Medium', status: 'Pending', assignedTo: null, vehicleId: null, estimatedTime: '2h' });
-                            setIsCreateTaskOpen(true);
                             setIsCreateTaskOpen(true);
                         }}
                         className="bg-civic-green-600 hover:bg-civic-green-700 text-white font-bold shadow-sm rounded-lg"
@@ -324,7 +309,7 @@ export function Tasks() {
             </div>
 
             {/* Filters Bar */}
-            <div className="bg-white dark:bg-gray-900 p-2 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mx-2 space-y-3">
+            <div className="bg-white dark:bg-gray-800 p-2 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mx-2 space-y-3">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="relative flex-1 w-full sm:max-w-md">
                         <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
@@ -434,7 +419,7 @@ export function Tasks() {
                                         {columnTasks.length} {columnTasks.length === 1 ? 'Task' : 'Tasks'}
                                     </span>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
                                     {columnTasks.map(task => (
                                         <TaskCard key={task.id} task={task} onDelete={handleDeleteClick} onEdit={handleEditClick} />
                                     ))}
@@ -456,7 +441,7 @@ export function Tasks() {
             {viewMode === 'list' && (
                 <div className="px-2 space-y-3">
                     {tasks.map(task => (
-                        <div key={task.id} className={`group bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col md:flex-row md:items-center justify-between gap-4 border-l-[4px] ${priorityColors[task.priority as keyof typeof priorityColors] || priorityColors.Low}`}>
+                        <div key={task.id} className={`group bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col md:flex-row md:items-center justify-between gap-4 border-l-[4px] ${priorityColors[task.priority as keyof typeof priorityColors] || priorityColors.Low}`}>
                             <div className="flex items-start md:items-center gap-6">
                                 <span className="font-mono text-[10px] text-gray-400 dark:text-gray-500 font-bold w-12 pt-1 md:pt-0">{task.id}</span>
                                 <div>
@@ -520,7 +505,7 @@ export function Tasks() {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-                <div className="flex items-center justify-between px-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex items-center justify-between px-2 pt-4 border-t border-gray-100 dark:border-gray-800 sm:pr-24">
                     <div className="text-sm text-gray-500 dark:text-gray-400">
                         Showing <span className="font-bold text-civic-dark dark:text-white">{Math.min(tasks.length, 8)}</span> of <span className="font-bold text-civic-dark dark:text-white">{totalTasks}</span> tasks
                     </div>
@@ -587,6 +572,197 @@ export function Tasks() {
                             Delete
                         </Button>
                     </div>
+                </div>
+            </Dialog>
+
+            {/* DISPATCH TODAY MODAL */}
+            <Dialog
+                isOpen={isDispatchOpen}
+                onClose={() => setIsDispatchOpen(false)}
+                title="Dispatch Today's Collections"
+                description="Create pickup tasks for all zones scheduled today."
+            >
+                <div className="space-y-5">
+                    {/* Pre-dispatch state */}
+                    {!dispatching && !dispatchResult && !dispatchError && (
+                        <>
+                            {/* Driver Selection */}
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                                    <User className="h-3.5 w-3.5 inline mr-1.5" />Assign Driver (Optional)
+                                </label>
+                                <select
+                                    value={selectedDriver}
+                                    onChange={(e) => setSelectedDriver(e.target.value)}
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium outline-none focus:ring-2 focus:ring-civic-green-500/20 focus:border-civic-green-500 dark:text-white transition-all"
+                                >
+                                    <option value="">No driver — assign later from Tasks</option>
+                                    {dispatchDrivers.map((d: any) => (
+                                        <option key={d._id} value={d._id}>
+                                            {d.name} {d.status === 'On Duty' ? '● On Duty' : d.status === 'On Leave' ? '○ On Leave' : '○ Off Duty'}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Vehicle Selection */}
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                                    <Truck className="h-3.5 w-3.5 inline mr-1.5" />Assign Vehicle (Optional)
+                                </label>
+                                <select
+                                    value={selectedVehicle}
+                                    onChange={(e) => setSelectedVehicle(e.target.value)}
+                                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium outline-none focus:ring-2 focus:ring-civic-green-500/20 focus:border-civic-green-500 dark:text-white transition-all"
+                                >
+                                    <option value="">No vehicle — assign later from Tasks</option>
+                                    {dispatchVehicles.map((v: any) => (
+                                        <option key={v._id} value={v._id}>
+                                            {v.vehicleId} — {v.type} ({v.status || 'Active'})
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Info banner */}
+                            <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800 rounded-xl p-3.5">
+                                <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                                    This will create collection tasks for <strong>all zones</strong> scheduled today. Zones that already have tasks today will be skipped. {selectedDriver ? 'Tasks will be auto-assigned to the selected driver.' : 'Tasks will be created as "Pending" for manual assignment.'}
+                                </p>
+                            </div>
+
+                            {/* Action buttons */}
+                            <div className="flex gap-3 pt-1">
+                                <Button
+                                    variant="outline"
+                                    className="flex-1 h-11 rounded-xl font-bold"
+                                    onClick={() => setIsDispatchOpen(false)}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    className="flex-1 h-11 rounded-xl font-bold bg-civic-green-600 hover:bg-civic-green-700 text-white shadow-lg shadow-civic-green-600/20"
+                                    onClick={async () => {
+                                        setDispatching(true);
+                                        setDispatchError(null);
+                                        setDispatchResult(null);
+                                        try {
+                                            const body: any = {};
+                                            if (selectedDriver) body.assignedTo = selectedDriver;
+                                            if (selectedVehicle) body.vehicleId = selectedVehicle;
+                                            const { data } = await client.post('/tasks/dispatch-today', body);
+                                            setDispatchResult(data);
+                                            fetchTasks();
+                                        } catch (err: any) {
+                                            setDispatchError(err?.response?.data?.message || 'Failed to dispatch tasks.');
+                                        } finally {
+                                            setDispatching(false);
+                                        }
+                                    }}
+                                >
+                                    <Send className="h-4 w-4 mr-2" /> Dispatch Now
+                                </Button>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Dispatching spinner */}
+                    {dispatching && (
+                        <div className="flex flex-col items-center justify-center py-10">
+                            <div className="relative">
+                                <div className="h-16 w-16 rounded-full border-4 border-civic-green-100 dark:border-civic-green-900/30" />
+                                <div className="absolute inset-0 h-16 w-16 rounded-full border-4 border-transparent border-t-civic-green-600 animate-spin" />
+                                <Truck className="absolute inset-0 m-auto h-6 w-6 text-civic-green-600" />
+                            </div>
+                            <p className="text-sm font-bold text-gray-900 dark:text-white mt-5">Dispatching Tasks...</p>
+                            <p className="text-xs text-gray-500 mt-1">Creating collection assignments for scheduled zones</p>
+                        </div>
+                    )}
+
+                    {/* Error state */}
+                    {dispatchError && (
+                        <div className="text-center py-6">
+                            <div className="h-14 w-14 mx-auto mb-4 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
+                                <XCircle className="h-7 w-7 text-red-500" />
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Dispatch Failed</h3>
+                            <p className="text-sm text-gray-500 mb-6">{dispatchError}</p>
+                            <div className="flex gap-3">
+                                <Button variant="outline" className="flex-1 h-10 rounded-xl font-bold" onClick={() => setIsDispatchOpen(false)}>Close</Button>
+                                <Button className="flex-1 h-10 rounded-xl font-bold bg-civic-green-600 hover:bg-civic-green-700 text-white" onClick={() => { setDispatchError(null); setDispatching(false); setDispatchResult(null); }}>Try Again</Button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Success result */}
+                    {dispatchResult && (
+                        <div className="space-y-4">
+                            {dispatchResult.created.length > 0 ? (
+                                <div className="text-center">
+                                    <div className="h-14 w-14 mx-auto mb-4 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center">
+                                        <CheckCircle2 className="h-7 w-7 text-green-500" />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Dispatch Complete!</h3>
+                                    <p className="text-sm text-gray-500">{dispatchResult.message}</p>
+                                </div>
+                            ) : (
+                                <div className="text-center">
+                                    <div className="h-14 w-14 mx-auto mb-4 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
+                                        <CheckCircle2 className="h-7 w-7 text-blue-500" />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">All Done for Today!</h3>
+                                    <p className="text-sm text-gray-500">All scheduled zones already have tasks dispatched. Nothing more to do.</p>
+                                </div>
+                            )}
+
+                            {/* Created tasks */}
+                            {dispatchResult.created.length > 0 && (
+                                <div className="space-y-2">
+                                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Tasks Created</h4>
+                                    <div className="space-y-1.5 max-h-[200px] overflow-y-auto">
+                                        {dispatchResult.created.map((item: any, i: number) => (
+                                            <div key={i} className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-100 dark:border-green-800">
+                                                <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                                                <div className="flex-1">
+                                                    <span className="text-sm font-bold text-gray-900 dark:text-white">{item.zone}</span>
+                                                    <div className="flex gap-1.5 mt-0.5">
+                                                        {item.types?.map((t: string) => (
+                                                            <span key={t} className="text-[10px] font-bold uppercase text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">{t}</span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Skipped zones */}
+                            {dispatchResult.skipped.length > 0 && (
+                                <div className="space-y-2">
+                                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Skipped</h4>
+                                    <div className="space-y-1.5">
+                                        {dispatchResult.skipped.map((item: any, i: number) => (
+                                            <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+                                                <Clock className="h-4 w-4 text-gray-400 shrink-0" />
+                                                <div>
+                                                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">{item.zone}</span>
+                                                    <span className="text-xs text-gray-400 ml-2">— {item.reason}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <Button
+                                className="w-full h-11 rounded-xl font-bold bg-civic-dark dark:bg-white text-white dark:text-civic-dark shadow-lg"
+                                onClick={() => setIsDispatchOpen(false)}
+                            >
+                                Done
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </Dialog>
 

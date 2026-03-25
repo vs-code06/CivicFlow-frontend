@@ -78,7 +78,7 @@ export function ResidentSidebar({ activeTab, setActiveTab, isCollapsed, onToggle
             {/* Sidebar Toggle & Profile Area */}
             <div className="p-3">
                 <div className={cn(
-                    "rounded-2xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 p-3 flex transition-all duration-300 backdrop-blur-sm",
+                    "rounded-2xl bg-gray-50/80 dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700 p-3 flex transition-all duration-300 backdrop-blur-sm",
                     isCollapsed ? "flex-col items-center gap-3" : "px-4 items-center justify-between"
                 )}>
                     {/* User Info */}

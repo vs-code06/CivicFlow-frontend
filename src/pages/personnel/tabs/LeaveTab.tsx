@@ -84,7 +84,7 @@ export function LeaveTab({ user }: LeaveTabProps) {
                         </div>
                         <div className="absolute -right-4 -bottom-4 h-24 w-24 text-white opacity-10 bg-white rounded-full"></div>
                     </div>
-                    <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-6 rounded-2xl shadow-sm flex flex-col justify-center">
+                    <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700 p-6 rounded-2xl shadow-sm flex flex-col justify-center">
                         <p className="text-gray-400 font-bold text-xs uppercase tracking-wider mb-1">Pending Requests</p>
                         <h2 className="text-4xl font-black text-civic-dark dark:text-white">
                             {requests.filter(r => r.status === 'Pending').length} <span className="text-lg font-medium text-gray-400">active</span>
@@ -95,7 +95,7 @@ export function LeaveTab({ user }: LeaveTabProps) {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* LEFT: Apply Form */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                        <div className="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-sm">
                             <h3 className="text-xl font-black text-civic-dark dark:text-white mb-6 flex items-center gap-2">
                                 <span className="bg-civic-dark text-white rounded-lg p-1.5"><Calendar className="h-4 w-4" /></span>
                                 New Request
@@ -174,7 +174,7 @@ export function LeaveTab({ user }: LeaveTabProps) {
                         <h3 className="text-lg font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4 px-1">Recent History</h3>
                         <div className="space-y-3">
                             {requests.length > 0 ? requests.map((req) => (
-                                <div key={req._id} className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm group hover:border-gray-200 dark:hover:border-gray-700 transition-all">
+                                <div key={req._id} className="bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm group hover:border-gray-200 dark:hover:border-gray-700 transition-all">
                                     <div className="flex justify-between items-start mb-2">
                                         <span className={cn(
                                             "text-[10px] uppercase font-bold px-2 py-0.5 rounded",

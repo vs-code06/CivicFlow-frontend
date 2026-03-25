@@ -13,8 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
-import { Zone } from '../../../api/zones';
-import { cn } from '../../../lib/utils';
+import { Zone, getZoneScheduleStatus } from '../../../api/zones';
 import { EfficiencyGauge } from '../components/EfficiencyGauge';
 
 
@@ -30,6 +29,21 @@ interface ResHomeTabProps {
 
 export function ResHomeTab({ currentLocation, zone, onSelectLocation, onNavigate }: ResHomeTabProps) {
 
+    const [todayCompleted, setTodayCompleted] = React.useState(false);
+
+    // Fetch today's schedule status to know if pickup is completed
+    React.useEffect(() => {
+        if (zone?._id) {
+            getZoneScheduleStatus(zone._id)
+                .then(data => {
+                    if (data?.status === 'completed') {
+                        setTodayCompleted(true);
+                    }
+                })
+                .catch(() => {});
+        }
+    }, [zone?._id]);
+
     // Helper to calculate next pickup
     const getNextPickup = () => {
         if (!zone?.schedule || zone.schedule.length === 0) return { day: 'Unknown', types: ['Waiting for schedule...'] };
@@ -38,12 +52,13 @@ export function ResHomeTab({ currentLocation, zone, onSelectLocation, onNavigate
         const todayIdx = new Date().getDay();
         const todayName = days[todayIdx];
 
-        // Check for today's pickup
-        const todayPickup = zone.schedule.find(s => s.day === todayName);
-        if (todayPickup) return { day: 'Today', types: todayPickup.types, time: todayPickup.startTime };
+        // Check for today's pickup — only show if NOT completed
+        if (!todayCompleted) {
+            const todayPickup = zone.schedule.find(s => s.day === todayName);
+            if (todayPickup) return { day: 'Today', types: todayPickup.types, time: todayPickup.startTime };
+        }
 
         // Find next day
-        // Sort schedule by day index
         const sortedSchedule = [...zone.schedule].sort((a, b) => days.indexOf(a.day) - days.indexOf(b.day));
 
         let next = sortedSchedule.find(s => days.indexOf(s.day) > todayIdx);

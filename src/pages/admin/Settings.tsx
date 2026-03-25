@@ -182,7 +182,7 @@ export function Settings() {
                 </div>
 
                 <div className="flex-1 max-w-4xl">
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-civic-muted dark:border-gray-800 shadow-sm p-6 sm:p-8 min-h-[600px]">
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-civic-muted dark:border-gray-700 shadow-sm p-6 sm:p-8 min-h-[600px]">
 
                         {/* GENERAL TAB */}
                         {activeTab === 'general' && (
@@ -376,8 +376,8 @@ export function Settings() {
                                     <p className="text-sm text-gray-500 dark:text-gray-400">Recent system activities and events.</p>
                                 </div>
 
-                                <div className="border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden">
-                                    <div className="bg-gray-50 dark:bg-gray-800/50 p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
+                                <div className="border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+                                    <div className="bg-gray-50 dark:bg-gray-800/50 p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                                         <span className="text-xs font-bold text-gray-500 uppercase">Recent Activity</span>
                                         <Button variant="ghost" size="sm" className="text-xs">Export CSV</Button>
                                     </div>

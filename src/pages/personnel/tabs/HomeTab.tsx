@@ -27,7 +27,7 @@ export function HomeTab({ taskStatus, currentTask, onAcceptTask, onStartTask, on
             <PageTransition>
                 <div className="relative z-20">
                     {/* Current Task Card */}
-                    <div className="bg-white/10 dark:bg-gray-800/40 backdrop-blur-md border border-white/20 dark:border-gray-700/50 p-5 rounded-2xl shadow-lg relative overflow-hidden group active:scale-[0.98] transition-all mb-8">
+                    <div className="bg-white/10 dark:bg-gray-800/60 backdrop-blur-md border border-white/20 dark:border-gray-700 p-5 rounded-2xl shadow-lg relative overflow-hidden group active:scale-[0.98] transition-all mb-8">
                         {/* Background decoration */}
                         <div className="absolute top-0 right-0 w-32 h-32 bg-civic-green-500/20 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none"></div>
 
@@ -57,7 +57,7 @@ export function HomeTab({ taskStatus, currentTask, onAcceptTask, onStartTask, on
                                 onClick={onStartTask}
                                 className="w-full bg-civic-dark text-white p-6 rounded-3xl shadow-2xl shadow-civic-dark/20 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-950 to-black"></div>
                                 <div className="relative z-10 flex items-center gap-4">
                                     <div className="h-12 w-12 bg-white/10 rounded-full flex items-center justify-center">
                                         <Navigation className="h-6 w-6 text-civic-green-400" />

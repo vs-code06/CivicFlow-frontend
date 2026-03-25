@@ -19,7 +19,7 @@ export function AssignmentsTab({ taskStatus, pendingTask, onAcceptTask }: Assign
     return (
         <PageTransition className="flex items-center justify-center h-[60vh]">
             <div className="text-center p-12 bg-gray-50 dark:bg-gray-900 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-800">
-                <div className="h-20 w-20 bg-white dark:bg-gray-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-6">
+                <div className="h-20 w-20 bg-white dark:bg-gray-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-6 border border-gray-100 dark:border-gray-700">
                     <Inbox className="h-8 w-8 text-gray-300 dark:text-gray-600" />
                 </div>
                 <h2 className="text-xl font-bold text-civic-dark dark:text-white mb-2">No New Assignments</h2>

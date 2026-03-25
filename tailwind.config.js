@@ -12,6 +12,21 @@ module.exports = {
         'civic-muted': '#E8E6E1', // Warm Stone Gray
         'civic-dark': '#212121',  // WasteHeroes Dark Charcoal
 
+        // Global Anti-Bluish Gray Override (True Dark) - Adjusted for distinguishability
+        gray: {
+          50: '#F9F9F9',
+          100: '#F5F5F5',
+          200: '#E5E5E5',
+          300: '#D4D4D4',
+          400: '#A3A3A3',
+          500: '#737373',
+          600: '#525252',
+          700: '#333333', // Visible Borders
+          800: '#1c1c1c', // Lower Surface / Cards
+          900: '#121212', // Main Component Surface
+          950: '#0a0a0a', // Deepest Background
+        },
+
         // Primary Brand Colors (WasteHeroes)
         'civic-green': {
           50: '#E8F5E9',

@@ -4,6 +4,7 @@ import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import { cn } from '../../lib/utils';
 import { PageTransition } from '../ui/page-transition';
+import { ChatbotWidget } from '../common/ChatbotWidget';
 
 export function Layout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -89,6 +90,9 @@ export function Layout() {
                     </PageTransition>
                 </main>
             </div>
+            
+            {/* Global Chatbot Widget */}
+            <ChatbotWidget />
         </div>
     );
 }

@@ -16,7 +16,7 @@ interface DropdownMenuContentProps {
     children: React.ReactNode;
     className?: string;
     align?: 'start' | 'end' | 'center';
-    side?: 'bottom' | 'top' | 'right';
+    side?: 'bottom' | 'top' | 'right' | 'left';
 }
 
 interface DropdownMenuItemProps {
@@ -86,15 +86,18 @@ export function DropdownMenuContent({ children, className, align = 'end', side =
         else if (align === 'start') alignmentClasses = "left-0 mt-2";
         else alignmentClasses = "left-1/2 -translate-x-1/2 mt-2";
     } else if (side === 'top') {
-        if (align === 'end') alignmentClasses = "right-0 mb-2 bottom-full";
-        else if (align === 'start') alignmentClasses = "left-0 mb-2 bottom-full";
+        if (align === 'end') alignmentClasses = "right-0 bottom-[calc(100%+4px)]";
+        else if (align === 'start') alignmentClasses = "left-0 bottom-[calc(100%+4px)]";
+        else alignmentClasses = "left-1/2 -translate-x-1/2 bottom-[calc(100%+4px)]";
     } else if (side === 'right') {
         alignmentClasses = "left-full top-0 ml-2";
+    } else if (side === 'left') {
+        alignmentClasses = "right-full top-0 mr-2";
     }
 
     return (
         <div className={cn(
-            "absolute z-50 min-w-[12rem] overflow-hidden rounded-xl border border-gray-100 bg-white p-1 shadow-lg animate-in fade-in zoom-in-95 duration-200",
+            "absolute z-50 overflow-hidden rounded-xl border border-gray-100 bg-white p-1 shadow-lg animate-in fade-in zoom-in-95 duration-200",
             alignmentClasses,
             className
         )}>

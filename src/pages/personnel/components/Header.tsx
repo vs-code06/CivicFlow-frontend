@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export function Header({ user, onLogout, onMenuClick }: HeaderProps) {
     return (
-        <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 p-4 shadow-sm relative overflow-hidden">
+        <div className="bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800 p-4 shadow-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] dark:opacity-[0.05] dark:invert"></div>
             <div className="relative z-10 flex justify-between items-start">
                 <div className="flex items-center gap-4">

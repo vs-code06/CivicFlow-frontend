@@ -147,8 +147,8 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                 {/* Header */}
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
                     <div>
-                        <h2 className="text-xl font-black text-civic-dark dark:text-white">{editingTask ? 'Edit Task' : 'New Assignment'}</h2>
-                        <p className="text-sm text-gray-400">Step {step} of 2</p>
+                        <h2 className="text-xl font-black text-civic-dark dark:text-white uppercase tracking-tight">{editingTask ? 'Edit Task' : 'New Assignment'}</h2>
+                        <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mt-0.5 whitespace-nowrap">Step {step} of 2</p>
                     </div>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl font-bold leading-none">
                         &times;
@@ -170,8 +170,8 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                                             type="button"
                                             onClick={() => setFormData({ ...formData, type: t, priority: t === 'Emergency' ? 'Critical' : 'Medium' })}
                                             className={`p-3 rounded-xl border text-sm font-bold flex flex-col items-center gap-1 transition-all ${formData.type === t
-                                                ? 'bg-civic-dark text-white border-civic-dark'
-                                                : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-500 hover:border-gray-300'}`}
+                                                ? 'bg-civic-dark text-white border-civic-dark dark:bg-white dark:text-civic-dark dark:border-white'
+                                                : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-white/10 text-gray-500 hover:border-gray-300 dark:hover:border-white/20'}`}
                                         >
                                             {t === 'Regular' && <Truck className="h-4 w-4" />}
                                             {t === 'Emergency' && <AlertTriangle className="h-4 w-4" />}
@@ -191,7 +191,7 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                                 <Label>Zone</Label>
                                 <select
                                     required
-                                    className="w-full h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 px-4 font-medium outline-none focus:ring-2 focus:ring-civic-green-500 dark:text-white"
+                                    className="w-full h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-white/10 px-4 font-medium outline-none focus:ring-2 focus:ring-civic-green-500 dark:text-gray-100"
                                     value={formData.zoneId}
                                     onChange={(e) => {
                                         const z = zones.find(z => z._id === e.target.value);
@@ -213,7 +213,7 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                                     <Label>Specific Area</Label>
                                     <select
                                         required
-                                        className="w-full h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 px-4 font-medium outline-none focus:ring-2 focus:ring-civic-green-500 dark:text-white"
+                                        className="w-full h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-white/10 px-4 font-medium outline-none focus:ring-2 focus:ring-civic-green-500 dark:text-gray-100"
                                         value={formData.targetAreaId}
                                         onChange={(e) => {
                                             const area = selectedZoneData?.areas?.find((a: any) => a._id === e.target.value);
@@ -245,7 +245,7 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                                     value={formData.title}
                                     onChange={e => setFormData({ ...formData, title: e.target.value })}
                                     placeholder="e.g. Morning Collection"
-                                    className="h-12 bg-gray-50 border-gray-100"
+                                    className="h-12 bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700"
                                 />
                             </div>
 
@@ -256,7 +256,7 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                                     onChange={e => setFormData({ ...formData, description: e.target.value })}
                                     placeholder="Add any special instructions..."
                                     rows={2}
-                                    className="w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 px-4 py-3 font-medium outline-none focus:ring-2 focus:ring-civic-green-500 text-sm resize-none dark:text-white"
+                                    className="w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-white/10 px-4 py-3 font-medium outline-none focus:ring-2 focus:ring-civic-green-500 text-sm resize-none dark:text-gray-100"
                                 />
                             </div>
 
@@ -277,11 +277,11 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                                 <div className="space-y-2">
                                     <Label>Est. Time</Label>
                                     <div className="relative">
-                                        <Clock className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
+                                        <Clock className="absolute left-3 top-3.5 h-4 w-4 text-gray-400 dark:text-gray-500" />
                                         <Input
                                             value={formData.estimatedTime}
                                             onChange={e => setFormData({ ...formData, estimatedTime: e.target.value })}
-                                            className="h-12 bg-gray-50 border-gray-100 pl-10"
+                                            className="h-12 bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700 pl-10"
                                             placeholder="e.g. 2h"
                                         />
                                     </div>
@@ -307,7 +307,7 @@ export function TaskCreationModal({ isOpen, onClose, onSuccess, editingTask, def
                             <div className="space-y-2">
                                 <Label>Assign Vehicle (Optional)</Label>
                                 <select
-                                    className="w-full h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 px-4 dark:text-white"
+                                    className="w-full h-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-white/10 px-4 dark:text-gray-100"
                                     value={formData.vehicleId}
                                     onChange={e => setFormData({ ...formData, vehicleId: e.target.value })}
                                 >

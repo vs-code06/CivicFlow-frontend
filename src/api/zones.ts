@@ -82,3 +82,18 @@ export const addAreaToZone = async (zoneId: string, data: Partial<ZoneArea>): Pr
     const response = await client.post(`/zones/${zoneId}/areas`, data);
     return response.data;
 };
+
+export const updateZoneSchedule = async (zoneId: string, schedule: { day: string; types: string[]; startTime: string; endTime: string }[]): Promise<Zone> => {
+    const response = await client.put(`/zones/${zoneId}/schedule`, { schedule });
+    return response.data.zone || response.data;
+};
+
+export const getZoneScheduleStatus = async (zoneId: string): Promise<any> => {
+    const response = await client.get(`/zones/${zoneId}/schedule-status`);
+    return response.data;
+};
+
+export const dispatchToday = async (): Promise<any> => {
+    const response = await client.post('/tasks/dispatch-today');
+    return response.data;
+};

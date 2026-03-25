@@ -109,18 +109,18 @@ export function PersonnelSidebar({ activeTab, setActiveTab, isCollapsed, onToggl
                                 ? "h-11 w-11 justify-center rounded-xl mx-auto"
                                 : "gap-3 px-4 py-3 rounded-xl",
                             activeTab === item.id
-                                ? "bg-gradient-to-r from-civic-green-50 to-transparent dark:from-civic-green-900/20 text-civic-green-700 dark:text-civic-green-400"
+                                ? "bg-gradient-to-r from-green-50 to-transparent dark:from-green-900/20 text-green-700 dark:text-green-400"
                                 : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-civic-dark dark:hover:text-white"
                         )}
                         title={isCollapsed ? item.label : ""}
                     >
                         {activeTab === item.id && (
-                            <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-md bg-civic-green-500"></div>
+                            <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-md bg-green-500"></div>
                         )}
                         <item.icon className={cn(
                             "shrink-0 transition-colors",
                             isCollapsed ? "h-5 w-5" : "h-4.5 w-4.5",
-                            activeTab === item.id ? "text-civic-green-600 dark:text-civic-green-400" : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300"
+                            activeTab === item.id ? "text-green-600 dark:text-green-400" : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300"
                         )} />
                         {!isCollapsed && (
                             <span className={cn("text-sm transition-all", activeTab === item.id ? "font-bold" : "font-medium")}>
@@ -137,15 +137,15 @@ export function PersonnelSidebar({ activeTab, setActiveTab, isCollapsed, onToggl
             {/* Footer / Profile */}
             <div className="p-3 shrink-0">
                 <div className={cn(
-                    "rounded-2xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 p-3 flex transition-all duration-300 backdrop-blur-sm mb-2",
+                    "rounded-2xl bg-gray-50/80 dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700 p-3 flex transition-all duration-300 backdrop-blur-sm mb-2",
                     isCollapsed ? "flex-col items-center gap-3" : "px-4 items-center justify-between"
                 )}>
                     <div className="flex items-center gap-3 min-w-0">
                         <div className="relative shrink-0">
-                            <div className="h-9 w-9 rounded-xl bg-civic-dark dark:bg-gray-800 text-white flex items-center justify-center font-black text-xs shadow-sm">
+                            <div className="h-9 w-9 rounded-xl bg-white dark:bg-gray-800 text-green-600 dark:text-green-400 flex items-center justify-center font-black text-xs shadow-sm">
                                 {user?.name?.split(' ').map((n) => n[0]).join('').substring(0, 2).toUpperCase() || 'PS'}
                             </div>
-                            <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-civic-green-500 border-2 border-white dark:border-gray-900"></span>
+                            <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-900"></span>
                         </div>
                         {!isCollapsed && (
                             <div className="flex flex-col truncate min-w-0">

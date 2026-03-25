@@ -670,7 +670,7 @@ export function Fleet() {
                 </div>
 
                 {/* Pagination */}
-                <div className="p-4 border-t border-gray-50 dark:border-gray-800 flex justify-between items-center bg-white dark:bg-gray-900">
+                <div className="p-4 border-t border-gray-50 dark:border-gray-800 flex justify-between items-center bg-white dark:bg-gray-900 sm:pr-24">
                     <p className="text-xs font-bold text-gray-400">
                         Showing {filteredItems.length > 0 ? ((page - 1) * itemsPerPage) + 1 : 0} - {Math.min(page * itemsPerPage, filteredItems.length)} of {filteredItems.length}
                     </p>
