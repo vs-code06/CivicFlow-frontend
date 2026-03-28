@@ -9,9 +9,22 @@ import {
     CheckCircle2,
     AlertTriangle,
     Filter,
-    ChevronLeft,
     ChevronRight,
+    Search as SearchIcon,
     X,
+    MessageCircle,
+    User,
+    ArrowUpRight,
+    Trash2,
+    CheckCircle,
+    RotateCcw,
+    LayoutDashboard,
+    AlertCircle,
+    FileText,
+    MoreHorizontal,
+    ThumbsUp,
+    ThumbsDown,
+    ChevronLeft,
     Phone
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
@@ -284,7 +297,7 @@ export function Complaints() {
                     {loading ? (
                         <div className="flex flex-col items-center justify-center p-12 text-gray-400 min-h-[400px]">
                             <div className="h-8 w-8 rounded-full border-4 border-civic-green-200 border-t-civic-green-600 animate-spin mb-4" />
-                            <p className="text-sm font-bold animate-pulse">Loading reports...</p>
+                            <p className="text-sm font-bold">Loading reports...</p>
                         </div>
                     ) : data.complaints.length === 0 ? (
                         <div className="flex flex-col items-center justify-center p-12 text-center min-h-[400px]">

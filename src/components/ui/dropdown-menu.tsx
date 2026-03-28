@@ -97,7 +97,7 @@ export function DropdownMenuContent({ children, className, align = 'end', side =
 
     return (
         <div className={cn(
-            "absolute z-50 overflow-hidden rounded-xl border border-gray-100 bg-white p-1 shadow-lg animate-in fade-in zoom-in-95 duration-200",
+            "absolute z-50 overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 p-1 shadow-lg animate-in fade-in zoom-in-95 duration-200",
             alignmentClasses,
             className
         )}>
@@ -112,7 +112,7 @@ export function DropdownMenuItem({ children, onClick, className, inset }: Dropdo
     return (
         <div
             className={cn(
-                "relative flex cursor-default select-none items-center rounded-lg px-2 py-2 text-sm outline-none transition-colors hover:bg-gray-50 focus:bg-gray-50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:text-civic-dark text-gray-600 font-medium cursor-pointer",
+                "relative flex cursor-default select-none items-center rounded-lg px-2 py-2 text-sm outline-none transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 focus:bg-gray-50 dark:focus:bg-gray-800 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:text-civic-dark dark:hover:text-white text-gray-600 dark:text-gray-300 font-medium cursor-pointer",
                 inset && "pl-8",
                 className
             )}
@@ -128,11 +128,11 @@ export function DropdownMenuItem({ children, onClick, className, inset }: Dropdo
 }
 
 export const DropdownMenuLabel = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-    <div className={cn("px-2 py-1.5 text-xs font-bold text-gray-500 uppercase tracking-wider", className)}>
+    <div className={cn("px-2 py-1.5 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider", className)}>
         {children}
     </div>
 );
 
 export const DropdownMenuSeparator = ({ className }: { className?: string }) => (
-    <div className={cn("-mx-1 my-1 h-px bg-gray-100", className)} />
+    <div className={cn("-mx-1 my-1 h-px bg-gray-100 dark:bg-gray-800", className)} />
 );

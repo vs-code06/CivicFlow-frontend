@@ -33,7 +33,7 @@ export function HomeTab({ taskStatus, currentTask, onAcceptTask, onStartTask, on
 
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <span className={`text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm text-white
-                                ${taskStatus === 'active' ? 'bg-civic-green-500 animate-pulse' : 'bg-civic-orange-500'}`}>
+                                ${taskStatus === 'active' ? 'bg-civic-green-500' : 'bg-civic-orange-500'}`}>
                                 {taskStatus === 'active' ? 'In Progress' : 'Ready to Start'}
                             </span>
                             <span className="text-xs font-bold text-gray-500 dark:text-gray-400 flex items-center gap-1 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-lg">
@@ -78,7 +78,7 @@ export function HomeTab({ taskStatus, currentTask, onAcceptTask, onStartTask, on
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-civic-green-500 to-emerald-600"></div>
                                 <div className="relative z-10 flex items-center gap-4">
-                                    <div className="h-12 w-12 bg-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                    <div className="h-12 w-12 bg-white/20 rounded-full flex items-center justify-center">
                                         <CheckCircle2 className="h-6 w-6 text-white" />
                                     </div>
                                     <div className="text-left">

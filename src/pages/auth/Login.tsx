@@ -104,7 +104,7 @@ export function Login() {
                                     {selectedRole === 'resident' ? 'Service Status' : 'System Status'}
                                 </div>
                                 <div className="text-xs text-green-400 flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> Online
+                                    Online
                                 </div>
                             </div>
                         </div>

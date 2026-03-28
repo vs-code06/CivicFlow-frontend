@@ -102,7 +102,7 @@ export function Signup() {
                                     {selectedRole === 'resident' ? 'Zone Coverage' : 'Zone Coverage'}
                                 </div>
                                 <div className="text-xs text-green-400 flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> Active
+                                    Active
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@ export function Signup() {
 
                     {/* Floating Badge */}
                     <div className="absolute -left-4 -bottom-4 bg-[#212121] border border-white/10 p-3 rounded-xl shadow-xl flex items-center gap-3">
-                        <div className="h-3 w-3 rounded-full animate-ping" style={{ backgroundColor: getThemeColor() }}></div>
+
                         <div className="text-xs text-white font-bold">
                             Syncing Data
                         </div>

@@ -29,7 +29,7 @@ function ProtectedRoute({ children, role }: { children: React.ReactNode, role?: 
       <div className="flex h-screen w-full items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-8 w-8 animate-spin text-civic-green-600" />
-          <p className="text-sm font-medium text-gray-500 animate-pulse">Verifying session...</p>
+          <p className="text-sm font-medium text-gray-500">Verifying session...</p>
         </div>
       </div>
     );

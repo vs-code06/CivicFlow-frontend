@@ -106,7 +106,7 @@ const TaskCard = ({ task, onDelete, onEdit }: { task: any, onDelete: (id: string
                         
                         {task.status !== 'Completed' && (
                             <div className="flex items-center gap-1 text-[10px] font-black text-civic-dark dark:text-civic-green-400">
-                                <Clock className="h-3 w-3 animate-pulse" /> {task.due}
+                                <Clock className="h-3 w-3" /> {task.due}
                             </div>
                         )}
                     </div>

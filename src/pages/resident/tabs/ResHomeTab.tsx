@@ -88,7 +88,7 @@ export function ResHomeTab({ currentLocation, zone, onSelectLocation, onNavigate
         return (
             <div className="flex flex-col items-center justify-center py-12 md:py-20 text-center animate-in fade-in zoom-in-95 duration-500">
                 <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-full mb-6 relative">
-                    <div className="absolute inset-0 bg-green-100 dark:bg-green-900/40 rounded-full animate-ping opacity-20"></div>
+
                     <MapPin className="h-12 w-12 text-green-600 dark:text-green-400 relative z-10" />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Welcome Home! 🏡</h2>
@@ -134,18 +134,18 @@ export function ResHomeTab({ currentLocation, zone, onSelectLocation, onNavigate
                     {/* Live Pulse Animation */}
                     <div className="absolute top-0 right-0 p-4">
                         <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                         </span>
                     </div>
 
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-green-400 animate-pulse"></div>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-green-400"></div>
 
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div>
                             <div className="flex items-center gap-3 mb-3">
                                 <span className="inline-flex items-center justify-center p-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 rounded-xl shadow-sm">
-                                    <Truck className="h-5 w-5 animate-bounce" />
+                                    <Truck className="h-5 w-5" />
                                 </span>
                                 <span className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-widest">Collection in Progress</span>
                             </div>
@@ -237,7 +237,7 @@ export function ResHomeTab({ currentLocation, zone, onSelectLocation, onNavigate
                     <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                         <div className="flex items-center justify-between text-xs font-medium text-gray-400">
                             <span>Last updated: Recently</span>
-                            <span className="flex items-center gap-1 text-green-500"><div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse"></div> Live</span>
+                            <span className="flex items-center gap-1 text-green-500"><div className="h-1.5 w-1.5 rounded-full bg-green-500"></div> Live</span>
                         </div>
                     </div>
                 </div>

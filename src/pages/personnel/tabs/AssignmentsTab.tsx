@@ -28,7 +28,7 @@ export function AssignmentsTab({ taskStatus, pendingTask, onAcceptTask }: Assign
                 {(taskStatus === 'active' || taskStatus === 'accepted') && (
                     <div className="mt-8">
                         <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-xs font-bold uppercase tracking-wider rounded-lg">
-                            <span className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
+                            <span className="h-2 w-2 bg-green-500 rounded-full"></span>
                             You have an active route
                         </span>
                     </div>

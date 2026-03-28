@@ -838,7 +838,7 @@ export function Fleet() {
                                                     <div key={t._id} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
                                                         <span className={cn("h-2 w-2 rounded-full shrink-0",
                                                             t.status === 'Completed' ? "bg-green-400" :
-                                                                t.status === 'In Progress' ? "bg-blue-400 animate-pulse" :
+                                                                t.status === 'In Progress' ? "bg-blue-400" :
                                                                     "bg-gray-300"
                                                         )} />
                                                         <div className="flex-1 min-w-0">

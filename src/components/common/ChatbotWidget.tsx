@@ -174,9 +174,9 @@ export function ChatbotWidget() {
                                         <Bot size={14} />
                                     </div>
                                     <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-tl-sm shadow-sm flex items-center gap-1.5 h-[52px]">
-                                        <div className="w-2 h-2 bg-civic-green-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                                        <div className="w-2 h-2 bg-civic-green-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                                        <div className="w-2 h-2 bg-civic-green-500 rounded-full animate-bounce"></div>
+                                        <div className="w-2 h-2 bg-civic-green-500 rounded-full [animation-delay:-0.3s]"></div>
+                                        <div className="w-2 h-2 bg-civic-green-500 rounded-full [animation-delay:-0.15s]"></div>
+                                        <div className="w-2 h-2 bg-civic-green-500 rounded-full"></div>
                                     </div>
                                 </motion.div>
                             )}

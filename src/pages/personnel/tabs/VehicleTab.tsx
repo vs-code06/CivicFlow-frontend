@@ -174,7 +174,7 @@ export function VehicleTab({ onInspectionComplete, user, taskStatus }: VehicleTa
                             className="w-full h-14 text-lg font-bold rounded-2xl bg-civic-dark dark:bg-white text-white dark:text-civic-dark hover:scale-[1.01] active:scale-[0.98] transition-all disabled:opacity-50 disabled:hover:scale-100 shadow-xl shadow-civic-dark/20 dark:shadow-none flex items-center justify-center gap-3"
                         >
                             <span>{hasIssues ? "Report Issues to Dispatch" : "Confirm Inspection & Start Route"}</span>
-                            {!hasIssues && isComplete && <Truck className="h-5 w-5 animate-bounce" />}
+                            {!hasIssues && isComplete && <Truck className="h-5 w-5" />}
                         </Button>
                     </div>
                 </div>

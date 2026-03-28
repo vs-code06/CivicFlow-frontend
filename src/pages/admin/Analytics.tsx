@@ -130,7 +130,7 @@ export function Analytics() {
         return (
             <div className="h-[80vh] flex flex-col items-center justify-center gap-4">
                 <Loader2 className="h-12 w-12 text-civic-green-500 animate-spin" />
-                <p className="text-gray-500 font-bold animate-pulse">Aggregating System Intelligence...</p>
+                <p className="text-gray-500 font-bold">Aggregating System Intelligence...</p>
             </div>
         );
     }

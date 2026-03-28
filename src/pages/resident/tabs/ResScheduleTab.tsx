@@ -179,7 +179,7 @@ export function ResScheduleTab({ onNavigateToWizard, zone }: ResScheduleTabProps
 
                 {/* LEFT: SELECTED DAY STATUS HERO (2/3) */}
                 <div className="lg:col-span-2 bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-3xl p-6 md:p-8 text-white shadow-xl shadow-gray-200/20 dark:shadow-none relative overflow-hidden group flex flex-col justify-between min-h-[280px]">
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none animate-pulse" />
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none" />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[60px] -ml-16 -mb-16 pointer-events-none" />
 
                     {loadingStatus && isViewingToday ? (
@@ -198,7 +198,7 @@ export function ResScheduleTab({ onNavigateToWizard, zone }: ResScheduleTabProps
                                         </Badge>
                                         {todayStatus?.live && (
                                             <span className="flex items-center gap-1.5 text-[10px] font-bold text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full border border-green-500/20">
-                                                <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" /> Live
+                                                <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> Live
                                             </span>
                                         )}
                                     </div>
@@ -386,8 +386,8 @@ export function ResScheduleTab({ onNavigateToWizard, zone }: ResScheduleTabProps
                                     <div className={cn("absolute -top-1 -right-1 h-3 w-3 rounded-full border-2",
                                         day.isSelected ? "border-gray-900" : "border-white dark:border-gray-800",
                                         liveStatus.status === 'completed' ? 'bg-emerald-500' :
-                                            liveStatus.status === 'driver-en-route' ? 'bg-green-500 animate-pulse' :
-                                                liveStatus.status === 'delayed' ? 'bg-red-500 animate-pulse' :
+                                            liveStatus.status === 'driver-en-route' ? 'bg-green-500' :
+                                                liveStatus.status === 'delayed' ? 'bg-red-500' :
                                                     'bg-blue-500'
                                     )} />
                                 )}

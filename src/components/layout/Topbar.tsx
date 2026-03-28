@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bell, Search, Calendar, User, Settings, LogOut, HelpCircle, ChevronDown, Menu, LayoutDashboard, Map, ListTodo, BarChart3, Truck, MessageSquareWarning, ShieldCheck, Building, ClipboardList, Monitor } from 'lucide-react';
+import { Search, Calendar, User, Settings, LogOut, ChevronDown, Menu, LayoutDashboard, Map, ListTodo, BarChart3, Truck, MessageSquareWarning, ShieldCheck, Building, ClipboardList, Monitor } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -42,7 +42,7 @@ const SEARCH_INDEX = [
 
 export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const [currentTime, setCurrentTime] = useState(new Date());
     
     // Search State
@@ -148,13 +148,6 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                     </span>
                 </div>
 
-                <div className="h-6 w-px bg-gray-200 dark:bg-zinc-800 mx-2"></div>
-
-                <Button variant="ghost" size="icon" className="relative shrink-0 text-gray-400 hover:text-civic-dark hover:bg-civic-green-50/50 rounded-full h-10 w-10 transition-colors">
-                    <Bell className="h-5 w-5" />
-                    <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-civic-green-500 ring-2 ring-white dark:ring-gray-900" />
-                </Button>
-
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
@@ -186,12 +179,8 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                             <Settings className="mr-2 h-4 w-4" />
                             <span>Settings</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <HelpCircle className="mr-2 h-4 w-4" />
-                            <span>Help & Support</span>
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-civic-red hover:text-civic-red hover:bg-red-50">
+                        <DropdownMenuItem className="text-civic-red hover:text-civic-red hover:bg-red-50" onClick={logout}>
                             <LogOut className="mr-2 h-4 w-4" />
                             <span>Log out</span>
                         </DropdownMenuItem>
