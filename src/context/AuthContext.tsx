@@ -71,16 +71,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const endpoint = '/auth/login';
         const { data } = await client.post(endpoint, { email, password, role });
+        if (data.token) localStorage.setItem('token', data.token);
         setUser(data.user);
     };
 
     const googleLogin = async (idToken: string, role?: UserRole) => {
         const { data } = await client.post('/auth/google', { idToken, role });
+        if (data.token) localStorage.setItem('token', data.token);
         setUser(data.user);
     };
 
     const logout = async () => {
         try {
+            localStorage.removeItem('token');
             await client.post('/auth/logout');
         } catch (error) {
             console.error("Logout failed", error);
@@ -93,6 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const endpoint = '/auth/register';
         // Note: The backend expects { name, email, password, role }
         const { data } = await client.post(endpoint, { name, email, password, role });
+        if (data.token) localStorage.setItem('token', data.token);
         setUser(data.user);
     };
 

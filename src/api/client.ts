@@ -9,6 +9,20 @@ const client = axios.create({
     },
 });
 
+// Request interceptor to add the token to the Authorization header
+client.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 // Response interceptor for handling 401 token expiration (optional for now, but good practice)
 // Response interceptor for handling 401 token expiration (optional for now, but good practice)
 /*
