@@ -10,7 +10,6 @@ import {
     AlertTriangle,
     Filter,
     ChevronRight,
-    Search as SearchIcon,
     X,
     ChevronLeft,
     Phone
