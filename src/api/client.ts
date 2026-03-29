@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance with default config
 const client = axios.create({
-    baseURL: '/api',
+    baseURL: process.env.REACT_APP_API_URL || '/api',
     withCredentials: true, // Important for cookies
     headers: {
         'Content-Type': 'application/json',

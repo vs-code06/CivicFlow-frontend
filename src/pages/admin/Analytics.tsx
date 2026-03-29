@@ -110,7 +110,7 @@ export function Analytics() {
         setAiLoading(true);
         setAiResponse('');
         try {
-            const res = await axios.post('http://localhost:8000/api/analytics', { query: aiQuery });
+            const res = await axios.post(`${process.env.REACT_APP_AI_SERVICE_URL}/analytics`, { query: aiQuery });
             setAiResponse(res.data.response);
         } catch (err) {
             setAiResponse("Sorry, I encountered an error while analyzing the system data. Please try again.");

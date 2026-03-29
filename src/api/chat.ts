@@ -7,7 +7,7 @@ export const sendChatMessage = async (message: string) => {
 
 export const sendChatMessageStream = async (message: string, onChunk: (text: string) => void) => {
     // using fetch instead of axios because of native streaming support
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+    const apiUrl = process.env.REACT_APP_API_URL || '/api';
     const response = await fetch(`${apiUrl}/chat/stream`, {
         method: 'POST',
         headers: {

@@ -12,18 +12,6 @@ import {
     ChevronRight,
     Search as SearchIcon,
     X,
-    MessageCircle,
-    User,
-    ArrowUpRight,
-    Trash2,
-    CheckCircle,
-    RotateCcw,
-    LayoutDashboard,
-    AlertCircle,
-    FileText,
-    MoreHorizontal,
-    ThumbsUp,
-    ThumbsDown,
     ChevronLeft,
     Phone
 } from 'lucide-react';
