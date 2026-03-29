@@ -11,7 +11,8 @@ export const sendChatMessageStream = async (message: string, onChunk: (text: str
     const response = await fetch(`${apiUrl}/chat/stream`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         credentials: 'include',
         body: JSON.stringify({ message })
